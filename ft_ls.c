@@ -9,7 +9,6 @@
 /*   Updated: 2019/07/31 16:55:09 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
   #include <dirent.h>
   #include <stdio.h>
   #include "ft_printf/ft_printf.h"
@@ -26,8 +25,14 @@ int ft_ls(void)
       return 0;
     }
        while ((dp = readdir(dir)) != NULL) {
-                printf("%s", dp->d_name);
+          ft_printf("%d \n", dp->d_type);
       }
       closedir(dir);
     return 0;
+}
+
+int main(int argc, char const *argv[])
+{
+  ft_ls();
+  return 0;
 }
