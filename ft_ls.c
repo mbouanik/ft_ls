@@ -36,18 +36,18 @@ int ft_ls(void)
     DIR * dir;
     struct dirent *dp;
     dir = NULL;
-	struct stat *restrict buf;
+	  struct stat *restrict buf;
     dir = opendir(".");
 
     if(dir == NULL){
       perror("error");
-      return 0;
+      return (0);
     }
        while ((dp = readdir(dir)) != NULL) {
           ft_printf("%s ", dp->d_name);
 		  stat(dp->d_name, buf);
-		  ft_printf(" stat: %x\n", buf->st_mode);
-         //  op_dir(dp);
+		  ft_printf(" stat: %o\n", buf->st_mode);
+
       }
       closedir(dir);
     return 0;
