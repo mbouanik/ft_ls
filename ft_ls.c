@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/20 01:07:11 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/22 03:10:26 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,27 @@
   #include <uuid/uuid.h>
   #include <sys/ioctl.h>
 
+typedef struct	s_tree_dir_name 
+{
+	char *name;
+	struct s_tree_dir_name* right;
+	struct s_tree_dir_name* left;
+}				t_tree_dir_name;
+
 typedef struct	s_dir_name 
 {
 	char *name;
 	struct s_dir_name* next;
 }				t_dir_name;
 
-void			op_dir(struct dirent * dp, DIR * dir, struct stat *restrict buf);
+
+void			op_dir(struct dirent * dp, DIR * dir, struct stat buf);
 void			ft_add_subdir(t_dir_name** nsub_dir ,char * str);
 size_t			lenname(DIR * dir, struct dirent * dp);
-void		free_subdir(t_dir_name ** sub_dir);
-void 	display_subdir(struct dirent * dp, DIR * dir, struct stat *restrict buf, t_dir_name  *sub_dir);
+void			free_subdir(t_dir_name ** sub_dir);
+void 			display_subdir(struct dirent * dp, DIR * dir, struct stat buf, t_dir_name  *sub_dir);
+void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat buf);
+
 
 
 
@@ -54,6 +64,18 @@ t_dir_name * 	 ft_new_subdir(char *s){
 	return (new_dir);
 }
 
+// t_tree_dir_name * ft_new_node(char *s){
+// 	t_tree_dir_name * new_node;
+	
+// 	new_node = NULL;
+// 	if((new_node = (t_tree_dir_name *)malloc(sizeof(t_tree_dir_name)))){
+// 		new_node->name = s;
+// 		new_node->left= NULL;
+// 		new_node->right = NULL;
+// 	}
+// 	return (new_node);
+// }
+
 void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 	
 	t_dir_name *index;
@@ -69,27 +91,27 @@ void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 	}
 }
 
-void 	display_subdir(struct dirent * dp, DIR * dir, struct stat *restrict buf, t_dir_name  *sub_dir){
+void 	display_subdir(struct dirent * dp, DIR * dir, struct stat  buf, t_dir_name  *sub_dir){
+
 	while ((dp = readdir(dir)) != NULL) {
-		stat(dp->d_name, buf);
+		stat(dp->d_name, &buf);
 		if (dp->d_name[0] != '.')
-			ft_printf("sub: %s -- %X\n",dp->d_name,buf->st_mode & S_IFDIR);
+			ft_printf("sub: %s -- %X ",dp->d_name,buf.st_mode & S_IFMT);
 		if (dp->d_name[0] != '.'){
-			if (buf->st_mode & S_IFDIR)//S_IFDIR)
+			if ((buf.st_mode & S_IFMT) == S_IFDIR)
 				ft_add_subdir(&sub_dir, dp->d_name);
 			ft_printf("%-s\n", dp->d_name);
 		}
 	}
 	ft_printf("\n");
 	if (sub_dir){
-		stat(sub_dir->name, buf);
+		// stat(sub_dir->name, &buf);
 		// 	while (sub_dir){
-		ft_printf("Love: %s, type: %x\n",sub_dir->name, buf->st_mode);
+		// ft_printf("Love: %s, type: %x\n",sub_dir->name, buf->st_mode);
 		ft_printf("\n./%s\n", sub_dir->name);
-			if (buf->st_mode & S_IFDIR)
+			// if (buf->st_mode & S_IFDIR)
 				display_subdir(dp, opendir(sub_dir->name), buf, sub_dir->next);
-
-		free_subdir(&sub_dir);
+		// free_subdir(&sub_dir);
 	// 	// sub_dir = sub_dir->next;
 	// 	free_subdir(&sub_dir);
 	// closedir(dir);
@@ -98,25 +120,28 @@ void 	display_subdir(struct dirent * dp, DIR * dir, struct stat *restrict buf, t
 }
 
 
-void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat *restrict buf){
+void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat buf){
 	
 	t_dir_name  *sub_dir;
-	
+	// t_tree_dir_name * sub_dir;
 	sub_dir = NULL;
+
 	while ((dp = readdir(dir)) != NULL) {
-		stat(dp->d_name, buf);
+		stat(dp->d_name, &buf);
 		if (dp->d_name[0] != '.')
-			ft_printf("\nsub: %s -- %X ",dp->d_name,buf->st_mode);
+			ft_printf("\nsub: %s -- %X",dp->d_name, buf.st_mode & S_IFMT);
 
 		if (dp->d_name[0] != '.'){
-			if (buf->st_mode & S_IFDIR)
+			if ((buf.st_mode & S_IFMT) == S_IFDIR)
 				ft_add_subdir(&sub_dir, dp->d_name);
 			ft_printf("%-s\n", dp->d_name);
 		}
 	}
 	// ft_printf("\n");
 	while (sub_dir){
-		// ft_printf("%s\n", sub_dir->name);
+		// free(&buf);
+		
+				// ft_printf("%s\n", sub_dir->name);
 		ft_printf("\n./%s:\n", sub_dir->name);
 		display_subdir(dp, opendir(sub_dir->name), buf, sub_dir);
 		// sub_dir = sub_dir->next;
@@ -163,9 +188,9 @@ size_t			lenname(DIR * dir, struct dirent * dp){
 
 struct winsize w;
 
-void			op_dir(struct dirent * dp, DIR * dir, struct stat *restrict buf){
+void			op_dir(struct dirent * dp, DIR * dir, struct stat  buf){
 	
-	stat(dp->d_name, buf);
+	stat(dp->d_name, &buf);
 	// ioctl(0, TIOCGWINSZ, &w);
 	ft_display_dir(dp, dir, buf);
 }
@@ -175,14 +200,15 @@ int ft_ls(void)
 	DIR * dir;
 	struct dirent *dp;
 	dir = NULL;
-	struct stat  buf;
+	struct stat  *buf;
+	
 	dir = opendir(".");
 
 	if(dir == NULL){
 		perror("error");
 	return (0);
 	}
-	op_dir(dp, dir, &buf);
+	op_dir(dp, dir, *buf);
 	closedir(dir);
 	return 0;
 }
@@ -190,5 +216,7 @@ int ft_ls(void)
 int main(int argc, char const *argv[])
 {
 	ft_ls();
+
+
 	return 0;
 }
