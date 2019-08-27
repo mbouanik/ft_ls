@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/27 12:20:48 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:38:47 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	sub_dir = NULL;
 	
 	while ((dp = readdir(dir)) != NULL) {
-		file_name = ft_strjoin(file_name, dp->d_name);
-		stat(file_name, buf);
+		// file_name = ft_strjoin(file_name, dp->d_name);
+		// stat(file_name, buf);
+		stat(dp->d_name, buf);
 		// if (dp->d_name[0] != '.')
 			// ft_printf("\nsub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
 
@@ -110,7 +111,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		}
 	}
 	ft_printf("\n");
-	free(file_name);
+	// free(file_name);
 	if (sub_dir){
 		ft_printf("\n%s:\n", ft_strjoin(sub_dir->name, "/"));
 		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
@@ -137,6 +138,7 @@ int ft_ls(char * s)
 		perror("error");
 	return (0);
 	}
+	ft_printf(" DIR :%d\n", telldir(dir));
 	ft_display_dir(dp, dir, &buf, s);
 
 	closedir(dir);
