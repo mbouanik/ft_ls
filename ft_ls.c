@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/27 11:19:46 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/27 12:20:48 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_name  *sub_dir){
 
 	DIR * dir = opendir(name);
+	if (dir == NULL)
+		ft_printf("Access Denied \n");
+	if (dir != NULL)
 	while ((dp = readdir(dir)) != NULL) {
 		stat(ft_strjoin(name, dp->d_name), buf);
 		// if (dp->d_name[0] != '.')
@@ -88,23 +91,26 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 }
 
 
-void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf){
+void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * file_name){
 	
 	t_dir_name  *sub_dir;
 
 	sub_dir = NULL;
 	
 	while ((dp = readdir(dir)) != NULL) {
-		stat(dp->d_name, buf);
+		file_name = ft_strjoin(file_name, dp->d_name);
+		stat(file_name, buf);
 		// if (dp->d_name[0] != '.')
 			// ft_printf("\nsub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
 
 		if (dp->d_name[0] != '.'){
 			if ((buf->st_mode & S_IFMT) == S_IFDIR)
-				ft_add_subdir(&sub_dir, ft_strjoin("/", dp->d_name));
+				ft_add_subdir(&sub_dir, ft_strjoin(file_name, dp->d_name));
 			ft_printf("%s  ", dp->d_name);
 		}
 	}
+	ft_printf("\n");
+	free(file_name);
 	if (sub_dir){
 		ft_printf("\n%s:\n", ft_strjoin(sub_dir->name, "/"));
 		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
@@ -113,28 +119,34 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf){
 }
 
 
-int ft_ls(void)
+int ft_ls(char * s)
 {
 	DIR * dir;
 	struct dirent *dp;
 	dir = NULL;
 	struct stat buf;
 	
-	dir = opendir("/");
+	if (s != NULL)
+		dir = opendir(s);
+	else{
+		dir = opendir(".");
+		s = "./";
+	}
 
 	if(dir == NULL){
 		perror("error");
 	return (0);
 	}
-	ft_display_dir(dp, dir, &buf);
+	ft_display_dir(dp, dir, &buf, s);
 
 	closedir(dir);
 	return 0;
 }
 
-int main(int argc, char const *argv[])
+int main(int ac, char  *av[])
 {
-	ft_ls();
+	// ft_printf("-%s\n ", av[1]);
+	ft_ls(av[1]);
 
 	// ft_printf("%x\n",-42);
 	// printf("%x\n",-42);
