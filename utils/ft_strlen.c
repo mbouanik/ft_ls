@@ -6,11 +6,11 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:38:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/25 21:45:43 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/27 17:30:02 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "utils.h"
 
 size_t	ft_strlen(const char *s)
 {

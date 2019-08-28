@@ -6,14 +6,11 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/15 16:55:21 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/25 21:45:03 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/27 17:30:44 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_strcat.c"
-#include "ft_memalloc.c"
-#include "ft_strlen.c"
-#include <stdio.h>
+#include "utils.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

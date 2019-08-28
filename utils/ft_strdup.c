@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 11:44:04 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/27 17:28:27 by mbouanik         ###   ########.fr       */
+/*   Created: 2016/11/08 14:40:43 by mbouanik          #+#    #+#             */
+/*   Updated: 2019/08/27 17:29:20 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strdup(const char *s1)
 {
-	size_t		i;
-	char		*str;
+	int		i;
+	char	*dest;
 
-	str = NULL;
 	i = 0;
-	str = (char*)b;
-	while (i < len)
-		str[i++] = (unsigned char)c;
-	return (str);
+	dest = NULL;
+	if ((dest = ft_strnew(ft_strlen(s1))))
+		while (s1[i])
+		{
+			dest[i] = s1[i];
+			i++;
+		}
+	return (dest);
 }

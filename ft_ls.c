@@ -6,12 +6,12 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/27 12:38:47 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/27 20:02:21 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "utils/ft_strjoin.c"
+#include "utils/utils.h"
  #include <dirent.h>
   #include <stdio.h>
   #include "ft_printf/ft_printf.h"
@@ -94,24 +94,22 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * file_name){
 	
 	t_dir_name  *sub_dir;
+	char * path;
 
 	sub_dir = NULL;
-	
 	while ((dp = readdir(dir)) != NULL) {
-		// file_name = ft_strjoin(file_name, dp->d_name);
-		// stat(file_name, buf);
-		stat(dp->d_name, buf);
-		// if (dp->d_name[0] != '.')
-			// ft_printf("\nsub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
-
+		path = ft_strjoin(file_name, dp->d_name);
+		stat(path, buf);
 		if (dp->d_name[0] != '.'){
 			if ((buf->st_mode & S_IFMT) == S_IFDIR)
-				ft_add_subdir(&sub_dir, ft_strjoin(file_name, dp->d_name));
+				ft_add_subdir(&sub_dir, path);
 			ft_printf("%s  ", dp->d_name);
 		}
+		path = NULL;
+		free(path);
 	}
 	ft_printf("\n");
-	// free(file_name);
+	free(file_name);
 	if (sub_dir){
 		ft_printf("\n%s:\n", ft_strjoin(sub_dir->name, "/"));
 		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
@@ -119,39 +117,40 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	}
 }
 
-
 int ft_ls(char * s)
 {
 	DIR * dir;
 	struct dirent *dp;
-	dir = NULL;
 	struct stat buf;
-	
-	if (s != NULL)
-		dir = opendir(s);
-	else{
-		dir = opendir(".");
-		s = "./";
-	}
 
+	dir = NULL;
+	dir = opendir(s);
 	if(dir == NULL){
 		perror("error");
 	return (0);
 	}
-	ft_printf(" DIR :%d\n", telldir(dir));
 	ft_display_dir(dp, dir, &buf, s);
-
 	closedir(dir);
 	return 0;
 }
 
 int main(int ac, char  *av[])
 {
-	// ft_printf("-%s\n ", av[1]);
-	ft_ls(av[1]);
-
-	// ft_printf("%x\n",-42);
-	// printf("%x\n",-42);
+	char * root;
+	
+	root = NULL;
+	if (av[1] != NULL){
+		if (ft_strlen(av[1]) > 1 && av[1][0] != '/' )
+		 root = ft_strjoin(av[1], "/");
+		 else
+		 root = strdup(av[1]);
+	}
+	else{
+		root = strdup("./");
+	}
+	ft_ls(root);
+	// ft_printf("%.6f\n",12.34);
+	// printf("%.6f\n",12.34);
 
 	return 0;
 }
