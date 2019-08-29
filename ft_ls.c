@@ -53,6 +53,7 @@ t_dir_name * 	 ft_new_subdir(char *s){
 void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 	
 	t_dir_name *index;
+	t_dir_name *tmp;
 
 	if(*nsub_dir == NULL){
 		*nsub_dir = ft_new_subdir(str);
@@ -148,9 +149,20 @@ int main(int ac, char  *av[])
 	else{
 		root = strdup("./");
 	}
-	ft_ls(root);
-	// ft_printf("%.6f\n",12.34);
-	// printf("%.6f\n",12.34);
+	// ft_ls(root);
+	// ft_printf("%o\n", -42);
+	// printf("%o\n", -42);
+
+	ft_printf("%.2f\n",50.999);
+	printf("%.2f\n",50.999);
+	ft_printf("%.2f\n",1.999);
+	printf("%.2f\n",1.999);
+	ft_printf("I LOve%9.2fYOU\n",99.999);
+	printf("I LOve%9.2fYOU\n",99.999);
+	ft_printf("I LOve%9.2fYOU\n",199.999);
+	printf("I LOve%9.2fYOU\n",199.999);
+	ft_printf("I LOve%9.2fYOU\n",999.999);
+	printf("I LOve%9.2fYOU\n",999.999);
 
 	return 0;
 }
