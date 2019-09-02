@@ -16,13 +16,13 @@ void			ft_num_up(int i, t_type *lst)
 {
 	if (SIZE == 0)
 	{
-		g_str[g_p + 1] = '1';
+		g_str[g_p] = '1';
 		while (g_str[g_p] != '.')
 			g_p++;
-		g_str[g_p] = '0';
-		g_str[g_p + 1] = '.';
+		// g_str[g_p] = '0';
+		// g_str[g_p + 1] = '.';
 		g_p = i;
-		g_str[g_p++] = '0';
+		// g_str[g_p++] = '0';
 	}
 	else
 		g_p = i;
@@ -55,22 +55,38 @@ void			ft_round_up_f(long double n, t_type *lst)
 		{
 			while ((g_str[g_p] == '9' || g_str[g_p] == '.') && SIZE)
 			{
+<<<<<<< HEAD
 				if (g_str[g_p] == '.' && (--SIZE)){
 					// --g_p;
 					break;
 				}
+=======
+				if (g_str[g_p] == '.' )
+					break;
+>>>>>>> cc5be96ec1c92447b8eaae21562cea09c0f8df29
 				g_str[g_p] = '0';
 				--g_p;
 				--SIZE;
 			}
 			if (g_str[g_p] == '.' && (--SIZE)){
 				--g_p;
+<<<<<<< HEAD
 			if (SIZE){
 				if (g_str[g_p] == '9')
 				g_str[g_p] = '0';
 				g_str[--g_p] += 1;
 			}
 		}
+=======
+			while (g_str[g_p] == '9' && SIZE){
+				g_str[g_p] = '0';
+				--g_p;
+				--SIZE;
+				if (SIZE== 0 )
+				break;
+			}
+				g_str[g_p] += 1;
+>>>>>>> cc5be96ec1c92447b8eaae21562cea09c0f8df29
 		}
 	}
 	ft_num_up(i, lst);
