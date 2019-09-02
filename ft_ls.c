@@ -65,6 +65,8 @@ t_dir_name * 	 ft_new_subdir(char *s){
 		new_dir->name = s;
 		new_dir->next = NULL;
 	}
+	s = NULL;
+	free(s);
 	return (new_dir);
 }
 
@@ -93,11 +95,7 @@ void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 					tmp = NULL;
 					break ;
 			 }
-				*nsub_dir = (*nsub_dir)->next;
-			
-			// else{
-					
-			// }
+			*nsub_dir = (*nsub_dir)->next;
 		}
 		if ((*nsub_dir)->next == NULL)
 				(*nsub_dir)->next = new_dir;
@@ -128,7 +126,8 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	while (st_dir)
 	{
 		ft_printf("%s  ", st_dir->name);
-		st_dir = st_dir->next;
+		free_subdir(&st_dir);
+		// st_dir = st_dir->next;
 	}
 	ft_printf("\n");
 	if (sub_dir){
@@ -160,7 +159,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	}
 	while (st_dir){
 		ft_printf("%s  ", st_dir->name);
-		st_dir = st_dir->next;
+		free_subdir(&st_dir);
 	}
 	ft_printf("\n");
 	free(file_name);
