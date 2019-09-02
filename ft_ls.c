@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/01 19:45:42 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/01 19:56:12 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,8 @@ t_dir_name * 	 ft_new_subdir(char *s){
 void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 	
 	t_dir_name *index;
-<<<<<<< HEAD
 	t_dir_name * new_dir;
 	t_dir_name * tmp;
-=======
-	t_dir_name *tmp;
->>>>>>> cc5be96ec1c92447b8eaae21562cea09c0f8df29
 
 
 	new_dir = ft_new_subdir(str);
@@ -212,7 +208,6 @@ int main(int ac, char  *av[])
 	else{
 		root = strdup("./");
 	}
-<<<<<<< HEAD
 	ft_ls(root);
 	// free(root);
 
@@ -221,22 +216,6 @@ int main(int ac, char  *av[])
 	// ft_printf("%d\n", ft_compare(".AngelaB", ".AngelaA"));
 	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
 	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
-=======
-	// ft_ls(root);
-	// ft_printf("%o\n", -42);
-	// printf("%o\n", -42);
-
-	ft_printf("%.2f\n",50.999);
-	printf("%.2f\n",50.999);
-	ft_printf("%.2f\n",1.999);
-	printf("%.2f\n",1.999);
-	ft_printf("I LOve%9.2fYOU\n",99.999);
-	printf("I LOve%9.2fYOU\n",99.999);
-	ft_printf("I LOve%9.2fYOU\n",199.999);
-	printf("I LOve%9.2fYOU\n",199.999);
-	ft_printf("I LOve%9.2fYOU\n",999.999);
-	printf("I LOve%9.2fYOU\n",999.999);
->>>>>>> cc5be96ec1c92447b8eaae21562cea09c0f8df29
 
 	return 0;
 }
