@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 22:49:40 by mbouanik          #+#    #+#             */
-/*   Updated: 2018/02/17 16:19:13 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/28 16:57:39 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_arg g_arg[] = {
 	{'E', &ft_display_arg_e},
 	{'g', &ft_display_arg_g},
 	{'G', &ft_display_arg_g},
-	{0, NULL}
+	{0, NULL},
 };
 
 void			ft_new(t_type *lst, int *j)

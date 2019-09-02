@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 20:38:26 by mbouanik          #+#    #+#             */
-/*   Updated: 2018/02/17 14:42:59 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/31 13:44:50 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ void		ft_display_arg_f(t_type *lst, va_list list)
 {
 	long double		n;
 
-	n = (long double)va_arg(list, double);
+	if (MOD == 'L')
+		n = (long double)va_arg(list, long double);
+	else	
+		n = (long double)va_arg(list, double);
 	ft_check_size_f(lst, n);
 	if (FLAGS & 2)
 		ft_display_arg_f_dash(lst, n);
