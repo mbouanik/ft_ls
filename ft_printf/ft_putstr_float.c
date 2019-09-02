@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 20:45:11 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/31 17:04:49 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/01 19:57:44 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,22 @@ void			ft_round_up_f(long double n, t_type *lst)
 		{
 			while ((g_str[g_p] == '9' || g_str[g_p] == '.') && SIZE)
 			{
-<<<<<<< HEAD
 				if (g_str[g_p] == '.' && (--SIZE)){
 					// --g_p;
 					break;
 				}
-=======
-				if (g_str[g_p] == '.' )
-					break;
->>>>>>> cc5be96ec1c92447b8eaae21562cea09c0f8df29
 				g_str[g_p] = '0';
 				--g_p;
 				--SIZE;
 			}
 			if (g_str[g_p] == '.' && (--SIZE)){
 				--g_p;
-<<<<<<< HEAD
 			if (SIZE){
 				if (g_str[g_p] == '9')
 				g_str[g_p] = '0';
 				g_str[--g_p] += 1;
 			}
 		}
-=======
-			while (g_str[g_p] == '9' && SIZE){
-				g_str[g_p] = '0';
-				--g_p;
-				--SIZE;
-				if (SIZE== 0 )
-				break;
-			}
-				g_str[g_p] += 1;
->>>>>>> cc5be96ec1c92447b8eaae21562cea09c0f8df29
 		}
 	}
 	ft_num_up(i, lst);
