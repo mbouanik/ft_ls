@@ -6,7 +6,7 @@
 #    By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/01 22:55:01 by mbouanik          #+#    #+#              #
-#    Updated: 2019/08/31 14:36:27 by mbouanik         ###   ########.fr        #
+#    Updated: 2019/09/03 00:51:49 by mbouanik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,14 @@ NAME = libftprintf.a
 SRC = 	ft_printf.c\
 		ft_display_str.c\
 		ft_assign_flags.c\
-		 ft_display_arg_d.c\
-		 ft_display_arg_b.c\
-		 ft_display_arg_o.c \
-		 ft_display_arg_octal.c\
-		 ft_display_arg_u.c\
-		 ft_display_arg_x.c\
-		 ft_display_arg_xx.c\
-		 ft_display_p.c\
+		ft_display_arg_d.c\
+		ft_display_arg_p.c\
+		ft_display_arg_b.c\
+		ft_display_arg_o.c\
+		ft_display_arg_octal.c\
+		ft_display_arg_x.c\
+		ft_display_arg_xx.c\
+		ft_display_arg_u.c\
 		ft_display_arg_uu.c\
 		ft_display_arg_dd.c\
 		ft_atoi_s.c\
@@ -38,7 +38,7 @@ SRC = 	ft_printf.c\
 		ft_cp_until.c\
 		ft_isdigit.c\
 		ft_putstr_g.c\
-		ft_strlen_t.c\
+		ft_strlen_g.c\
 		ft_strlen_b.c\
 		ft_strlen_hexa.c\
 		ft_strlen_num.c\
@@ -87,7 +87,8 @@ SRC = 	ft_printf.c\
 		ft_putstr_float_e.c\
 		ft_display_arg_g.c\
 		ft_putstr_float_g.c\
-		ft_retrieve.c
+		ft_retrieve.c\
+		ft_memcpy.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -52,7 +52,7 @@ void		ft_display_arg_s(t_type *lst, va_list list)
 	{
 		if (PMFW != -1)
 			ft_memcpy_g(g_str, s, SIZE);
-		if (MFW > 0)
+		if (MFW > 0 && (PMFW = -1))
 			ft_display_arg_s_no_dash(lst, s);
 	}
 	else

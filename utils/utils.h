@@ -1,7 +1,7 @@
 #ifndef UTILS__H
 # define UTILS__H
 # include <stdlib.h>
-
+# include "../ft_printf/ft_printf.h"
 
 int		ft_strcmp(const char *s1, const char *s2);
 void	*ft_memalloc(size_t size);

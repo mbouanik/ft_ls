@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 22:49:40 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/28 16:57:39 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/02 22:38:31 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_arg g_arg[] = {
 	{'E', &ft_display_arg_e},
 	{'g', &ft_display_arg_g},
 	{'G', &ft_display_arg_g},
-	{0, NULL},
+	{0, NULL}
 };
 
 void			ft_new(t_type *lst, int *j)
@@ -46,7 +46,7 @@ void			ft_new(t_type *lst, int *j)
 	lst->mod = 0;
 	lst->size = 0;
 	lst->arg_type = 0;
-	*j = -1;
+	*j = 0;
 }
 
 void			ft_init(void)
@@ -80,9 +80,13 @@ int				ft_printf(char *format, ...)
 		if (*format == '%' && (format++) && *format)
 		{
 			ft_assign_flags(&format, &lst, list);
-			while (lst.arg_type != g_arg[j].c && g_arg[++j].c)
-				if (lst.arg_type == g_arg[j].c)
+			while (g_arg[j].c){
+				if (lst.arg_type == g_arg[j].c){
 					g_arg[j].f(&lst, list);
+					break ;
+				}
+				j++;
+			}
 		}
 		g_ok = g_p;
 		ft_arg(&lst, g_arg[j].c, list);

@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 20:45:11 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/01 19:57:44 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:59:08 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void			ft_num_up(int i, t_type *lst)
 {
 	if (SIZE == 0)
 	{
-		g_str[g_p] = '1';
+		g_str[g_p + 1] = '1';
 		while (g_str[g_p] != '.')
 			g_p++;
-		// g_str[g_p] = '0';
-		// g_str[g_p + 1] = '.';
+		g_str[g_p] = '0';
+		g_str[g_p + 1] = '.';
 		g_p = i;
-		// g_str[g_p++] = '0';
+		g_str[g_p++] = '0';
 	}
 	else
 		g_p = i;
@@ -47,30 +47,24 @@ void			ft_round_up_f(long double n, t_type *lst)
 
 	i = g_p;
 	g_p--;
-	if ((uint64_t)(n * 10) % 10 >= 5)
+	if (((uint64_t)(n * 10) % 10 ) >= 5)
 	{
 		if (g_str[g_p] <= '8' && g_str[g_p] >= '0')
 			g_str[g_p] += 1;
 		else if (g_str[g_p] == '9')
 		{
-			while ((g_str[g_p] == '9' || g_str[g_p] == '.') && SIZE)
+			while ((g_str[g_p] == '9' && SIZE))
 			{
-				if (g_str[g_p] == '.' && (--SIZE)){
-					// --g_p;
+				if (g_str[g_p] == '.' && (--SIZE))
 					break;
-				}
 				g_str[g_p] = '0';
 				--g_p;
 				--SIZE;
 			}
-			if (g_str[g_p] == '.' && (--SIZE)){
+			if (g_str[g_p] == '.' && (--SIZE))
 				--g_p;
-			if (SIZE){
-				if (g_str[g_p] == '9')
-				g_str[g_p] = '0';
-				g_str[--g_p] += 1;
-			}
-		}
+			if (SIZE && g_str[g_p] < '9')
+				g_str[g_p] += 1;
 		}
 	}
 	ft_num_up(i, lst);

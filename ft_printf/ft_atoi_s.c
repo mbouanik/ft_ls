@@ -19,11 +19,11 @@ int		ft_atoi_s(char **str, va_list list)
 	nb = 0;
 	if (**str == '*')
 		return (va_arg(list, int));
-	else if (!(ft_isdigit_s(**str)))
-	{
-		*str -= 1;
-		return (-1);
-	}
+	// else if (!(ft_isdigit_s(**str)))
+	// {
+	// 	*str -= 1;
+	// 	return (-1);
+	// }
 	while (**str >= '0' && **str <= '9')
 	{
 		nb = (nb * 10) + (**str - 48);

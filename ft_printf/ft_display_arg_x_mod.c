@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 20:55:32 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/31 14:39:01 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/02 21:26:18 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ t_arg g_arg_x[] = {
 	{216, &ft_display_arg_x_uintm},
 	{106, &ft_display_arg_x_uintm},
 	{122, &ft_display_arg_x_uintm},
-	{76 , &ft_display_arg_x_uintm},
+	{76, &ft_display_arg_x_uintm},
 	{0, NULL}
 };
 
 void		ft_display_arg_x_mod(t_type *lst, va_list list)
 {
 	int j;
-	
+
 	j = 0;
 	while (lst->mod != g_arg_x[j].c && g_arg_x[j].c)
 		++j;

@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/21 05:19:40 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/25 20:39:28 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/31 17:08:02 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void		ft_display_arg_u(t_type *lst, va_list list)
 	}
 	n = va_arg(list, unsigned int);
 	SIZE = ft_strlen_num(n);
+	if (PMFW == -1)
+		SIZE = 0;
 	ft_size(lst, SIZE);
 	if (FLAGS & 2)
 		ft_display_arg_u_dash(lst, n);

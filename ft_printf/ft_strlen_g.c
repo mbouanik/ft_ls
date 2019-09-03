@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen_t.c                                      :+:      :+:    :+:   */
+/*   ft_strlen_g.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/08 14:38:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/25 21:50:28 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/03 02:11:13 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_strlen_t(const char *s)
+size_t	ft_strlen_g(const char *s)
 {
 	int i;
 
 	i = 0;
-	if (s != NULL)
+	if (s != NULL)	
 		while (s[i])
-			i++;
+			++i;
 	return (i);
 }
 

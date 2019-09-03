@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 02:32:42 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/31 14:19:46 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/31 14:20:52 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void		ft_arg_type(t_type *lst, char **f)
 	ft_flags(f, lst);
 	if (ft_isalpha(**f))
 		lst->arg_type = *(*f)++;
-// 	if (ft_isalpha(**f))
-// 		lst->arg_type = *(*f)++;
+//	if (ft_isalpha(**f))
+//		lst->arg_type = *(*f)++;
 }
 
 void			ft_assign_flags(char **f, t_type *lst, va_list list)
@@ -73,7 +73,7 @@ void			ft_assign_flags(char **f, t_type *lst, va_list list)
 			}
 			*f += 1;
 		}
-	if (**f == 'h' || **f == 'l' || **f == 'j' || **f == 'z' || **f == 'L')
+	if (**f == 'h' || **f == 'l' || **f == 'j' || **f == 'z'|| **f == 'L')
 		ft_arg_type(lst, f);
 	else if (ft_isalpha(**f) || **f == '%')
 		lst->arg_type = *(*f)++;

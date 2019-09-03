@@ -12,27 +12,27 @@
 
 #include "ft_printf.h"
 
-void		ft_str_null_no_dash(t_type *lst, int size)
+void		ft_str_null_no_dash(t_type *lst)
 {
-	if (MFW > size)
+	if (MFW > SIZE)
 	{
 		if (FLAGS & 4)
-			ft_memset_g_set(g_str, '0', MFW - size);
+			ft_memset_g_set(g_str, '0', MFW - SIZE);
 		else
-			ft_memset_g_set(g_str, ' ', MFW - size);
+			ft_memset_g_set(g_str, ' ', MFW - SIZE);
 		if (PMFW != -1)
-			ft_memcpy_g(g_str, "(null)", size);
+			ft_memcpy_g(g_str, "(null)", SIZE);
 	}
 	else
 	{
 		if (PMFW != -1)
-			ft_memcpy_g(g_str, "(null)", size);
+			ft_memcpy_g(g_str, "(null)", SIZE);
 	}
 }
 
 void		ft_str_null(t_type *lst)
 {
-	if ((SIZE = 6) && SIZE > PMFW && PMFW > 0)
+	if ((SIZE = 6) && PMFW < SIZE && PMFW > 0)
 		SIZE = PMFW;
 	if (PMFW == -1)
 		SIZE = 0;
@@ -45,5 +45,5 @@ void		ft_str_null(t_type *lst)
 			ft_memset_g_set(g_str, ' ', MFW - SIZE);
 	}
 	else
-		ft_str_null_no_dash(lst, SIZE);
+		ft_str_null_no_dash(lst);
 }
