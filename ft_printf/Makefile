@@ -6,7 +6,7 @@
 #    By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/01 22:55:01 by mbouanik          #+#    #+#              #
-#    Updated: 2019/09/03 00:51:49 by mbouanik         ###   ########.fr        #
+#    Updated: 2019/09/03 05:30:57 by mbouanik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC = 	ft_printf.c\
 		ft_cp_until.c\
 		ft_isdigit.c\
 		ft_putstr_g.c\
-		ft_strlen_g.c\
+		ft_strlen.c\
 		ft_strlen_b.c\
 		ft_strlen_hexa.c\
 		ft_strlen_num.c\

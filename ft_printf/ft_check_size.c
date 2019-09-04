@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/23 15:35:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/03 01:50:09 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/03 05:34:16 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		ft_check_size_f_e(t_type *lst, long double n)
 
 void		ft_check_size_str(t_type *lst, char *s)
 {
-	SIZE = ft_strlen_g(s);
+	SIZE = ft_strlen(s);
 	if ( SIZE > PMFW && PMFW > 0)
 		SIZE = PMFW;
 	if (PMFW == -1)

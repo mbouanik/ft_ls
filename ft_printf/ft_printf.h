@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 16:34:57 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/03 00:53:41 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:48:19 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void				ft_putstr_g(char *str);
 int					ft_strlen_b(long long n);
 int					ft_strlen_hexa(unsigned long long int n);
 size_t				ft_strlen_num(long long int n);
-size_t				ft_strlen_g(const char *s);
+size_t				ft_strlen(const char *s);
 int					ft_isprint(int c);
 void				ft_size(t_type *lst, int size);
 void				*ft_memset_g_set(void *b, int c, size_t len);

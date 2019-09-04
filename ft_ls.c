@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/03 03:39:59 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/03 18:34:35 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,16 @@ typedef struct	s_dir_name
 	struct s_dir_name* next;
 }				t_dir_name;
 
+void ft_free_struct(t_dir_name *sub_dir){
+	if  (sub_dir == NULL)
+		return ;
 
+	// if (sub_dir->next)
+		ft_free_struct(sub_dir->next);
+	// free(sub_dir->name);
+	free(sub_dir);
+
+}
 int 	ft_compare(char *s1, char *s2){
 	int i;
 
@@ -53,10 +62,12 @@ void		free_subdir(t_dir_name ** sub_dir){
 
 	temp = *sub_dir;
 	*sub_dir = (*sub_dir)->next;
-	temp->next = NULL;
-	temp->name = NULL;
-	free(temp->name);
+	// free(temp->name);
+	// temp->next = NULL;
+	// temp->name = NULL;
 	free(temp);
+
+	temp = NULL;
 }
 
 t_dir_name * 	 ft_new_subdir(char *s){
@@ -67,8 +78,9 @@ t_dir_name * 	 ft_new_subdir(char *s){
 		new_dir->name = s;
 		new_dir->next = NULL;
 	}
-	s = NULL;
-	free(s);
+	// s = NULL;
+	// free(s);
+	// s = NULL;
 	return (new_dir);
 }
 
@@ -110,7 +122,6 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	t_dir_name *st_dir;
 	st_dir = NULL;
 			// ft_printf("PATH : %s\n",name);
-	
 	DIR * dir = opendir(name);
 	
 	if (dir == NULL)
@@ -121,14 +132,14 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 		// if (dp->d_name[0] != '.')
 			// ft_printf("sub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
 		if (dp->d_name[0] != '.'){
-				ft_add_subdir(&st_dir,  dp->d_name);
+				ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
 			if ((buf->st_mode & S_IFMT) == S_IFDIR)
 				ft_add_subdir(&sub_dir, ft_strjoin(name, dp->d_name));
 				// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
 			
 		}
 	}
-	if (dir != NULL)
+	// if (!readdir(dir))
 		closedir(dir);
 	while (st_dir)
 	{
@@ -140,8 +151,19 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	if (sub_dir){
 		ft_printf("\n%s:\n", sub_dir->name);
 		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
+		// ft_printf("Freed :  %s \n", sub_dir->name);
+
+		// free(sub_dir->name);
+		// free(sub_dir);
+		// ft_free_struct(sub_dir);
+
 		free_subdir(&sub_dir);
+
 	}
+
+
+	
+
 }
 
 
@@ -153,25 +175,28 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 
 	sub_dir = NULL;
 	st_dir = NULL;
+
 	dir = opendir(file_name);
 	if (dir == NULL)
-		ft_printf("Access Denied \n");
+		ft_printf("%s \n", file_name);
 	else
 	while ((dp = readdir(dir)) != NULL) {
 		path = ft_strjoin(file_name, dp->d_name);
 		stat(path, buf);
 		if (dp->d_name[0] != '.'){
-				ft_add_subdir(&st_dir, dp->d_name);
+			// ft_printf("name %s\n", dp->d_name);
+				ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
 			if ((buf->st_mode & S_IFMT) == S_IFDIR)
 				ft_add_subdir(&sub_dir, path);
 		}
 		path = NULL;
 		free(path);
 	}
-	if (dir != NULL)
-	closedir(dir);
+	// ft_printf("----%s ---\n", dp);
+	if (dp == NULL)
+		closedir(dir);
 	while (st_dir){
-		ft_printf("%s  ", st_dir->name);
+		ft_printf("%-3s", st_dir->name);
 		free_subdir(&st_dir);
 		// st_dir = st_dir->next;
 	}
@@ -180,12 +205,17 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	if (sub_dir){
 		ft_printf("\n%s:\n", sub_dir->name);
 		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
+		// free(sub_dir->name);
+		// free(sub_dir);
 		free_subdir(&sub_dir);
+		// ft_free_struct(sub_dir);
+
 	}
 	// while (sub_dir){
 	// 	ft_printf("\n%s:\n", ft_strjoin(sub_dir->name, "/"));
 	// 	sub_dir = sub_dir->next;
 	// }
+	
 }
 
 int ft_ls(char * s)
@@ -216,15 +246,16 @@ int main(int ac, char  *av[])
 	
 	root = NULL;
 	
-	while (av[1] && av[1][i])
-		i++;
 	if (!av[1])
 		root = strdup("./");
-	else if (av[1][i] != '/')
+	else{
+	while (av[1] && av[1][i])
+		++i;
+	if (av[1][i - 1] != '/')
 		 root = ft_strjoin(av[1], "/");
-	 else
+	else
 		 root = strdup(av[1]);
-
+	}
 
 	ft_ls(root);
 	// free(root);
