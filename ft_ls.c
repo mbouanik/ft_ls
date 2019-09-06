@@ -6,9 +6,12 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/05 17:38:36 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/05 23:40:57 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 
 #include "utils/utils.h"
@@ -125,28 +128,32 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	path = NULL;
 			// ft_printf("PATH : %s\n",name);
 		
-	DIR * dir = opendir(name);
+	DIR * dir = NULL;
+	dir = opendir(name);
 	
 	if (dir == NULL)
-		ft_printf("Access Denied \n");
+		perror("error");
 	else {
 	while ((dp = readdir(dir)) != NULL) {
 		path = ft_strjoin(name, dp->d_name); 
 		// ft_printf(" PAth: %s\n", path);
-		stat(path, buf);
+		lstat(path, buf);
 		// if (dp->d_name[0] != '.')
 			// ft_printf("sub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
 		if (dp->d_name[0] != '.'){
-				ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
+			ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
 			if ((buf->st_mode & S_IFMT) == S_IFDIR)
 				ft_add_subdir(&sub_dir, ft_strjoin(name, dp->d_name));
-				// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
+			  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
 		}
 
 	}
 	}
-	// if (!dp && dir)
-		// closedir(dir);
+	if (!dp && dir){
+		(void)closedir(dir);
+		// ft_printf("Closing dir :: ");
+		// perror("error");
+	}
 	while (st_dir)
 	{
 		ft_printf("%s  ", st_dir->name);
@@ -155,23 +162,14 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	}
 	ft_printf("\n");
 	if (sub_dir){
-		closedir(dir);
-
 		ft_printf("\n%s:\n", sub_dir->name);
 		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
 		// ft_printf("Freed :  %s \n", sub_dir->name);
-
 		// free(sub_dir->name);
 		// free(sub_dir);
 		// ft_free_struct(sub_dir);
-
 		free_subdir(&sub_dir);
-
 	}
-
-
-	
-
 }
 
 
@@ -202,8 +200,8 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		// path = NULL;
 	}
 	// ft_printf("----%s ---\n", dp);
-	if (!dp && dir)
-		closedir(dir);
+	// if (!dp && dir)
+	// 	(void)closedir(dir);
 	while (st_dir){
 		ft_printf("%-3s", st_dir->name);
 		free_subdir(&st_dir);
@@ -218,7 +216,6 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		// free(sub_dir);
 		free_subdir(&sub_dir);
 		// ft_free_struct(sub_dir);
-
 	}
 	// while (sub_dir){
 	// 	ft_printf("\n%s:\n", ft_strjoin(sub_dir->name, "/"));
@@ -270,7 +267,9 @@ int main(int ac, char  *av[])
 	// free(root);
 
 	
-	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
+	// ft_printf("%lu\n", -42);
+	// printf("%lu\n", -42);
+
 	// ft_printf("%d\n", ft_compare(".AngelaB", ".AngelaA"));
 	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
 	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
