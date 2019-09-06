@@ -149,11 +149,11 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 
 	}
 	}
-	if (!dp && dir){
+	if (!dp && dir)
 		(void)closedir(dir);
 		// ft_printf("Closing dir :: ");
 		// perror("error");
-	}
+	// }
 	while (st_dir)
 	{
 		ft_printf("%s  ", st_dir->name);
@@ -185,11 +185,12 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 
 	dir = opendir(file_name);
 	if (dir == NULL)
-		ft_printf("%s \n", file_name);
-	else
+		perror("error");
+
+	else{
 	while ((dp = readdir(dir)) != NULL) {
 		path = ft_strjoin(file_name, ft_strdup(dp->d_name));
-		stat(path, buf);
+		lstat(path, buf);
 		if (dp->d_name[0] != '.'){
 			// ft_printf("name %s\n", dp->d_name);
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
@@ -199,9 +200,10 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		// free(path);
 		// path = NULL;
 	}
+	}
 	// ft_printf("----%s ---\n", dp);
-	// if (!dp && dir)
-	// 	(void)closedir(dir);
+	if (!dp && dir)
+		(void)closedir(dir);
 	while (st_dir){
 		ft_printf("%-3s", st_dir->name);
 		free_subdir(&st_dir);
