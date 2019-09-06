@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/03 18:34:35 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:36:42 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void		free_subdir(t_dir_name ** sub_dir){
 
 	temp = *sub_dir;
 	*sub_dir = (*sub_dir)->next;
-	// free(temp->name);
+	free(temp->name);
 	// temp->next = NULL;
-	// temp->name = NULL;
+	temp->name = NULL;
 	free(temp);
 
 	temp = NULL;
@@ -117,30 +117,36 @@ void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 	}
 }
 
-void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_name  *sub_dir){
+void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_name  *sub_dir, DIR * dir){
 
 	t_dir_name *st_dir;
 	st_dir = NULL;
+	char * path;
+	path = NULL;
 			// ft_printf("PATH : %s\n",name);
-	DIR * dir = opendir(name);
-	
+		
+	dir = opendir(name);
 	if (dir == NULL)
 		ft_printf("Access Denied \n");
-	else
-	while ((dp = readdir(dir)) != NULL) {
-		stat(ft_strjoin(name, dp->d_name), buf);
-		// if (dp->d_name[0] != '.')
-			// ft_printf("sub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
-		if (dp->d_name[0] != '.'){
-				ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
-			if ((buf->st_mode & S_IFMT) == S_IFDIR)
-				ft_add_subdir(&sub_dir, ft_strjoin(name, dp->d_name));
-				// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
-			
+	else {
+		while ((dp = readdir(dir)) != NULL) {
+			path = ft_strjoin(name, dp->d_name); 
+			// ft_printf(" PAth: %s\n", path);
+			stat(path, buf);
+			// if (dp->d_name[0] != '.')
+				// ft_printf("sub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
+			if (dp->d_name[0] != '.'){
+					ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
+				if ((buf->st_mode & S_IFMT) == S_IFDIR)
+					ft_add_subdir(&sub_dir, ft_strjoin(name, dp->d_name));
+					// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
+			}
 		}
 	}
-	// if (!readdir(dir))
+	if (!dp && dir){
 		closedir(dir);
+		dir = NULL;
+	}
 	while (st_dir)
 	{
 		ft_printf("%s  ", st_dir->name);
@@ -149,8 +155,10 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	}
 	ft_printf("\n");
 	if (sub_dir){
+		// closedir(dir);
+
 		ft_printf("\n%s:\n", sub_dir->name);
-		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
+		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next, dir);
 		// ft_printf("Freed :  %s \n", sub_dir->name);
 
 		// free(sub_dir->name);
@@ -173,6 +181,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	t_dir_name *st_dir;
 	char * path;
 
+	path = NULL;
 	sub_dir = NULL;
 	st_dir = NULL;
 
@@ -181,7 +190,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		ft_printf("%s \n", file_name);
 	else
 	while ((dp = readdir(dir)) != NULL) {
-		path = ft_strjoin(file_name, dp->d_name);
+		path = ft_strjoin(file_name, ft_strdup(dp->d_name));
 		stat(path, buf);
 		if (dp->d_name[0] != '.'){
 			// ft_printf("name %s\n", dp->d_name);
@@ -189,12 +198,14 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 			if ((buf->st_mode & S_IFMT) == S_IFDIR)
 				ft_add_subdir(&sub_dir, path);
 		}
-		path = NULL;
-		free(path);
+		// free(path);
+		// path = NULL;
 	}
 	// ft_printf("----%s ---\n", dp);
-	if (dp == NULL)
+	if (!dp && dir){
 		closedir(dir);
+		dir = NULL;
+	}
 	while (st_dir){
 		ft_printf("%-3s", st_dir->name);
 		free_subdir(&st_dir);
@@ -204,7 +215,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	free(file_name);
 	if (sub_dir){
 		ft_printf("\n%s:\n", sub_dir->name);
-		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
+		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next, dir);
 		// free(sub_dir->name);
 		// free(sub_dir);
 		free_subdir(&sub_dir);
@@ -261,7 +272,7 @@ int main(int ac, char  *av[])
 	// free(root);
 
 	
-	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
+	// ft_printf("%lld\n",  (long long int)-9223372036854775808);
 	// ft_printf("%d\n", ft_compare(".AngelaB", ".AngelaA"));
 	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
 	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
