@@ -151,14 +151,10 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	}
 	if (!dp && dir)
 		(void)closedir(dir);
-		// ft_printf("Closing dir :: ");
-		// perror("error");
-	// }
 	while (st_dir)
 	{
 		ft_printf("%s  ", st_dir->name);
 		free_subdir(&st_dir);
-		// st_dir = st_dir->next;
 	}
 	ft_printf("\n");
 	if (sub_dir){
