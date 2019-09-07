@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/06 21:32:32 by mathis           ###   ########.fr       */
+/*   Updated: 2019/09/06 22:28:09 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 
 
-#include "utils/utils.h"
- #include <dirent.h>
-  #include <stdio.h>
-  #include "ft_printf/ft_printf.h"
-  #include <sys/stat.h>
-  #include <sys/types.h>
-  #include <pwd.h>
-  #include <uuid/uuid.h>
-  #include <sys/ioctl.h>
+
+
+  #include "ft_ls.h"
+
 
 
 typedef struct	s_dir_name 
@@ -32,24 +27,6 @@ typedef struct	s_dir_name
 }				t_dir_name;
 
 
-size_t			lenname(DIR * dir, struct dirent * dp){
-
-	size_t size;
-	struct dirent * index;
-
-	index = dp;
-
-	size = 0;
-    rewinddir(dir);
-
-	while ((dp = readdir(dir)) != NULL) {
-		if (dp->d_namlen > size)
-			size = dp->d_namlen ;
-		}
-	dp = index;
-	return size;
-    
-}
 
 
 
@@ -177,12 +154,13 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 		lstat(path, buf);
 		// if (dp->d_name[0] != '.')
 			// ft_printf("sub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
-
+			if (dp->d_name[0] != '.' ){
 			ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
-			if (((buf->st_mode & S_IFMT) == S_IFDIR) &&  (dp->d_name[1] != '.' && dp->d_namlen > 2))
+			if (((buf->st_mode & S_IFMT) == S_IFDIR))
 
 				ft_add_subdir(&sub_dir, ft_strdup(path));
 			  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
+			}
 		
 	free(path);
 	// path = NULL;
@@ -230,13 +208,15 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		// ft_printf("%s%s\n", file_name,dp->d_name);
 		path = ft_strjoin(file_name, ft_strdup(dp->d_name));
 		lstat(path, buf);
+		if (dp->d_name[0] != '.'){
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
 
 
 		// if (dp->d_name[0] != '.'){
 			// ft_printf("name %s\n", dp->d_name);
-			if (((buf->st_mode & S_IFMT) == S_IFDIR) &&  (dp->d_name[1] != '.' && dp->d_namlen > 2))
+			if (((buf->st_mode & S_IFMT) == S_IFDIR) )
 				ft_add_subdir(&sub_dir, ft_strdup(path));
+		}
 		// }
 		free(path);
 		// path = NULL;
@@ -246,7 +226,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	
 	
 	while (st_dir){
-		ft_printf("%-*s", lenname(dir,dp) + 2, st_dir->name);
+		ft_printf("%s ", st_dir->name);
 		free_dir(&st_dir);
 		// st_dir = st_dir->next;
 	}

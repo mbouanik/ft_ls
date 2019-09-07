@@ -1,6 +1,13 @@
-void ft_assign_flags(char *s){
+#include "ft_ls.h"
 
+void ft_assign_ls_flags(char *s){
+	int i;
+
+	i = 0;
+	while(s[i])
+		i++;
 }
+
 size_t			lenname(DIR * dir, struct dirent * dp){
 
 	size_t size;
