@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/05 23:40:57 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/06 21:32:32 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@ typedef struct	s_dir_name
 	char *name;
 	struct s_dir_name* next;
 }				t_dir_name;
+
+
+size_t			lenname(DIR * dir, struct dirent * dp){
+
+	size_t size;
+	struct dirent * index;
+
+	index = dp;
+
+	size = 0;
+    rewinddir(dir);
+
+	while ((dp = readdir(dir)) != NULL) {
+		if (dp->d_namlen > size)
+			size = dp->d_namlen ;
+		}
+	dp = index;
+	return size;
+    
+}
+
+
 
 void ft_free_struct(t_dir_name *sub_dir){
 	if  (sub_dir == NULL)
@@ -67,7 +89,21 @@ void		free_subdir(t_dir_name ** sub_dir){
 	*sub_dir = (*sub_dir)->next;
 	free(temp->name);
 	// temp->next = NULL;
-	temp->name = NULL;
+	// free(temp->name);
+	// temp->name = NULL;
+	free(temp);
+
+	temp = NULL;
+}
+void		free_dir(t_dir_name ** sub_dir){
+	t_dir_name * temp;
+
+	temp = *sub_dir;
+	*sub_dir = (*sub_dir)->next;
+	free(temp->name);
+	// temp->next = NULL;
+	// free(temp->name);
+	// temp->name = NULL;
 	free(temp);
 
 	temp = NULL;
@@ -78,11 +114,11 @@ t_dir_name * 	 ft_new_subdir(char *s){
 
 	new_dir = NULL;
 	if((new_dir = (t_dir_name *)malloc(sizeof(t_dir_name)))){
-		new_dir->name = s;
+		new_dir->name = ft_strdup(s);
 		new_dir->next = NULL;
 	}
 	// s = NULL;
-	// free(s);
+	free(s);
 	// s = NULL;
 	return (new_dir);
 }
@@ -118,6 +154,7 @@ void			ft_add_subdir(t_dir_name** nsub_dir ,char * str){
 				(*nsub_dir)->next = new_dir;
 		*nsub_dir = index;
 	}
+
 }
 
 void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_name  *sub_dir){
@@ -132,7 +169,7 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	dir = opendir(name);
 	
 	if (dir == NULL)
-		perror("error");
+		perror("ls");
 	else {
 	while ((dp = readdir(dir)) != NULL) {
 		path = ft_strjoin(name, dp->d_name); 
@@ -140,26 +177,31 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 		lstat(path, buf);
 		// if (dp->d_name[0] != '.')
 			// ft_printf("sub: %s -- %X ",dp->d_name, buf->st_mode & S_IFMT);
-		if (dp->d_name[0] != '.'){
-			ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
-			if ((buf->st_mode & S_IFMT) == S_IFDIR)
-				ft_add_subdir(&sub_dir, ft_strjoin(name, dp->d_name));
-			  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
-		}
 
+			ft_add_subdir(&st_dir,   ft_strdup(dp->d_name));
+			if (((buf->st_mode & S_IFMT) == S_IFDIR) &&  (dp->d_name[1] != '.' && dp->d_namlen > 2))
+
+				ft_add_subdir(&sub_dir, ft_strdup(path));
+			  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
+		
+	free(path);
+	// path = NULL;
 	}
 	}
 	if (!dp && dir)
 		(void)closedir(dir);
 	while (st_dir)
 	{
-		ft_printf("%s  ", st_dir->name);
+		ft_printf("%s ", st_dir->name);
 		free_subdir(&st_dir);
+		// st_dir = st_dir->next;
 	}
 	ft_printf("\n");
 	if (sub_dir){
+		path = ft_strjoin(sub_dir->name, "/");
 		ft_printf("\n%s:\n", sub_dir->name);
-		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
+		display_subdir(dp, path, buf, sub_dir->next);
+		free(path);
 		// ft_printf("Freed :  %s \n", sub_dir->name);
 		// free(sub_dir->name);
 		// free(sub_dir);
@@ -185,31 +227,39 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 
 	else{
 	while ((dp = readdir(dir)) != NULL) {
+		// ft_printf("%s%s\n", file_name,dp->d_name);
 		path = ft_strjoin(file_name, ft_strdup(dp->d_name));
 		lstat(path, buf);
-		if (dp->d_name[0] != '.'){
-			// ft_printf("name %s\n", dp->d_name);
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
-			if ((buf->st_mode & S_IFMT) == S_IFDIR)
-				ft_add_subdir(&sub_dir, path);
-		}
-		// free(path);
+
+
+		// if (dp->d_name[0] != '.'){
+			// ft_printf("name %s\n", dp->d_name);
+			if (((buf->st_mode & S_IFMT) == S_IFDIR) &&  (dp->d_name[1] != '.' && dp->d_namlen > 2))
+				ft_add_subdir(&sub_dir, ft_strdup(path));
+		// }
+		free(path);
 		// path = NULL;
 	}
 	}
 	// ft_printf("----%s ---\n", dp);
-	if (!dp && dir)
-		(void)closedir(dir);
+	
+	
 	while (st_dir){
-		ft_printf("%-3s", st_dir->name);
-		free_subdir(&st_dir);
+		ft_printf("%-*s", lenname(dir,dp) + 2, st_dir->name);
+		free_dir(&st_dir);
 		// st_dir = st_dir->next;
 	}
+	if (!dp && dir)
+		(void)closedir(dir);
 	ft_printf("\n");
 	free(file_name);
 	if (sub_dir){
+		file_name = ft_strjoin(sub_dir->name, "/");
 		ft_printf("\n%s:\n", sub_dir->name);
-		display_subdir(dp, ft_strjoin(sub_dir->name, "/"), buf, sub_dir->next);
+		display_subdir(dp,path , buf, sub_dir->next);
+	free(file_name);
+
 		// free(sub_dir->name);
 		// free(sub_dir);
 		free_subdir(&sub_dir);
