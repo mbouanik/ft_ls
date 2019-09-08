@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/07 17:49:33 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/07 18:25:17 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 
 
 			if (((buf->st_mode & S_IFMT) == S_IFDIR)){
-				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name))
+				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags &2))
 					ft_add_subdir(&sub_dir, ft_strdup(path));
 				else if (dp->d_name[0] != '.')
 					ft_add_subdir(&sub_dir, ft_strdup(path));
@@ -57,7 +57,7 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 		// st_dir = st_dir->next;
 	}
 	ft_printf("\n");
-	if (sub_dir){
+	if (sub_dir && (g_flags & 1)){
 		path = ft_strjoin(sub_dir->name, "/");
 		ft_printf("\n%s:\n", sub_dir->name);
 		display_subdir(dp, path, buf, sub_dir->next);
@@ -97,7 +97,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 
 
 		if (((buf->st_mode & S_IFMT) == S_IFDIR)){
-				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name))
+				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags & 2))
 					ft_add_subdir(&sub_dir, ft_strdup(path));
 				else if (dp->d_name[0] != '.')
 					ft_add_subdir(&sub_dir, ft_strdup(path));
@@ -131,7 +131,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		(void)closedir(dir);
 	ft_printf("\n");
 	free(file_name);
-	if (sub_dir){
+	if (sub_dir && (g_flags & 1)){
 		file_name = ft_strjoin(sub_dir->name, "/");
 		ft_printf("\n%s:\n", sub_dir->name);
 		display_subdir(dp, file_name , buf, sub_dir->next);

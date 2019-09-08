@@ -1,18 +1,16 @@
 #include "ft_ls.h"
 
-int ft_assign_ls_flags(char *s){
+void ft_assign_ls_flags(char *s){
 	int i;
-	int flags;
 
 	i = 1;
 	while(s[i]){
 		if (s[i] == 'R')
-			flags |= 1;
+			g_flags |= 1;
 		else if (s[i] == 'a')
-			flags |= 2;
+			g_flags |= 2;
 		i++;
 	}
-	return flags;
 }
 
 size_t			lenname(DIR * dir, struct dirent * dp){
