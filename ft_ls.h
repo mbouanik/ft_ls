@@ -22,6 +22,7 @@ typedef struct	s_dir_name
 
 short g_flags;
 
+
 void ft_assign_ls_flags(char *s);
 size_t			lenname(DIR * dir, struct dirent * dp);
 int			ft_hidden_dir(char *s);

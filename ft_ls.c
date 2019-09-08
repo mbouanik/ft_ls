@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/07 18:21:11 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/07 19:08:31 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@ int ft_ls(char * s)
 	return 0;
 }
 
-int main(int ac, char  *av[])
-{
+int main(int ac, char  *av[]){
 	char * root;
 	int i;
 
 	i = 0;
-	
+	g_flags = 0;
 	root = NULL;
-	if (!av[1] || av[1][0] != '-'){
+	// if (av[1][0] == '-')
+	// ft_assign_ls_flags(av[1]);
+
+ if (!av[1] || av[1][0] != '-'){
 		if (!av[1])
 		root = strdup("./");
 		else{
@@ -63,7 +65,7 @@ else{
 		}
 }
 	ft_ls(root);
-	// free(root);
+
 
 	
 	// ft_printf("%lu\n", -42);
@@ -71,7 +73,7 @@ else{
 
 	// ft_printf("%d\n", ft_compare(".AngelaB", ".AngelaA"));
 	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
-	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
+	// ft_printf("%d\n", ft_compalsre(".Angela", "AngelaA"));
 
 	return 0;
 }
