@@ -6,7 +6,7 @@
 /*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/07 19:12:37 by mathis           ###   ########.fr       */
+/*   Updated: 2019/09/07 19:49:12 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	path = NULL;
 	sub_dir = NULL;
 	st_dir = NULL;
-
+	// ft_printf("%s:", file_name);
 	dir = opendir(file_name);
-	if (dir == NULL)
-		perror("error");
-
+	if (dir == NULL){
+		ft_printf(" ls: %.*s: %s", ft_strlen(file_name) - 1, file_name, strerror( errno));
+	}
 	else{
 	while ((dp = readdir(dir)) != NULL) {
 		// ft_printf("%s%s\n", file_name,dp->d_name);

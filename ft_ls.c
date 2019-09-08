@@ -6,7 +6,7 @@
 /*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/07 19:08:31 by mathis           ###   ########.fr       */
+/*   Updated: 2019/09/08 15:43:47 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,13 @@ int main(int ac, char  *av[]){
 	root = NULL;
 	// if (av[1][0] == '-')
 	// ft_assign_ls_flags(av[1]);
+// if (ac == 2){
 
- if (!av[1] || av[1][0] != '-'){
+// }
+// else if (ac == 1){
+	
+// }
+ if (!av[1]){
 		if (!av[1])
 		root = strdup("./");
 		else{

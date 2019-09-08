@@ -9,8 +9,10 @@
 #include <uuid/uuid.h>
 #include <sys/ioctl.h>
 #include "utils/utils.h"
- #include <dirent.h>
-  #include <stdio.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <errno.h>
+
 
 
 
