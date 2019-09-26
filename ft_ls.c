@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/08 15:43:47 by mathis           ###   ########.fr       */
+/*   Updated: 2019/09/08 20:51:26 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,23 @@ int main(int ac, char  *av[]){
 // }
  if (!av[1]){
 		if (!av[1])
-		root = strdup("./");
+			root = strdup("./");
 		else{
-		while (av[1] && av[1][i])
-			++i;
-		if (av[1][i - 1] != '/')
-			root = ft_strjoin(av[1], "/");
-		else
-			root = strdup(av[1]);
+			while (av[1] && av[1][i])
+				++i;
+			if (av[1][i - 1] != '/')
+				root = ft_strjoin(av[1], "/");
+			else
+				root = strdup(av[1]);
 		}
+}
+else if (av[1] && !av[2]){
+	if(av[1][0] == '-' && av[1][1]){
+		ft_assign_ls_flags(av[1]);
+		root = strdup("./");
+	}
+	else
+		root = ft_strjoin(av[1], "/");
 }
 else{
 	ft_assign_ls_flags(av[1]);

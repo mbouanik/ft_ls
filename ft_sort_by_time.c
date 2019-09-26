@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_subdir.c                                    :+:      :+:    :+:   */
+/*   ft_sort_by_time.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/07 17:55:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/26 14:16:08 by mbouanik         ###   ########.fr       */
+/*   Created: 2019/09/08 21:10:45 by mbouanik          #+#    #+#             */
+/*   Updated: 2019/09/25 12:29:06 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_dir_name * 	 ft_new_subdir(char *s){
-	t_dir_name * new_dir;
+int ft_sort_by_time(int time1, int time2){
 
-	new_dir = NULL;
-	if((new_dir = (t_dir_name *)malloc(sizeof(t_dir_name)))){
-		new_dir->name = ft_strdup(s);
-		new_dir->next = NULL;
-	}
-	free(s);
-	return (new_dir);
+	if (time1 > time2)
+		return 0;
+	else if (time2 >  time1)
+		return 1;
+	return -1;
 }

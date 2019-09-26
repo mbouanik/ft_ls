@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_dir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/07 19:49:12 by mathis           ###   ########.fr       */
+/*   Updated: 2019/09/26 14:16:29 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	// ft_printf("%s:", file_name);
 	dir = opendir(file_name);
 	if (dir == NULL){
-		ft_printf(" ls: %.*s: %s", ft_strlen(file_name) - 1, file_name, strerror( errno));
+		ft_printf("ft_ls: %.*s: %s", ft_strlen(file_name) - 1, file_name, strerror(errno));
 	}
 	else{
 	while ((dp = readdir(dir)) != NULL) {
@@ -33,13 +33,16 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		path = ft_strjoin(file_name, ft_strdup(dp->d_name));
 		lstat(path, buf);
 		// if (dp->d_name[0] != '.'){
-	
+		
 		if((g_flags) & 2){
 			ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
 		}
 		else {
-			if (dp->d_name[0] != '.')
+
+			if (dp->d_name[0] != '.'){
+				// ft_printf("%d -- %s \n",buf->st_atimespec.tv_sec, dp->d_name);
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
+			}
 
 		}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_sub_dir.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:53:41 by mathis            #+#    #+#             */
-/*   Updated: 2019/09/07 19:51:08 by mathis           ###   ########.fr       */
+/*   Updated: 2019/09/26 14:29:30 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 	dir = opendir(name);
 	
 	if (dir == NULL)
-		ft_printf(" ls: %.*s: %s", ft_strlen(name) - 1, name, strerror( errno));
+		ft_printf(" ls: %.*s: %s", ft_strlen(name) - 1, name, strerror(errno));
 
 		// perror("ls");
 	else {
