@@ -6,20 +6,20 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 17:42:47 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/26 14:24:47 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/26 14:50:07 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-// void			ft_add_sub_by_time(t_dir_name** nsub_dir, char * str){
+// void			ft_add_sub_by_time(t_dir_name** nsub_dir, char * str, struct stat * buf){
 	
 // 	t_dir_name *index;
 // 	t_dir_name * new_dir;
 // 	t_dir_name * tmp;
 
 
-// 	new_dir = ft_new_subdir(str);
+// 	new_dir = ft_new_subdir(str, buf);
 // 	if(*nsub_dir == NULL){
 // 		*nsub_dir = new_dir;
 // 	}

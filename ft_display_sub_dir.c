@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:53:41 by mathis            #+#    #+#             */
-/*   Updated: 2019/09/26 14:29:30 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/26 14:45:43 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 
 
         if((g_flags) & 2){
-			ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
+			ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 		}
 		else {
 			if (dp->d_name[0] != '.')
-				ft_add_subdir(&st_dir, ft_strdup(dp->d_name));
+				ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 
 		}
 
@@ -49,9 +49,9 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 
 		if (((buf->st_mode & S_IFMT) == S_IFDIR)){
 				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags & 2))
-					ft_add_subdir(&sub_dir, ft_strdup(path));
+					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
 				else if (dp->d_name[0] != '.')
-					ft_add_subdir(&sub_dir, ft_strdup(path));
+					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
 			  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
 			}
 
