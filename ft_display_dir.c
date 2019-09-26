@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/26 14:45:04 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/26 16:30:24 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		else {
 
 			if (dp->d_name[0] != '.'){
-				// ft_printf("%d -- %s \n",buf->st_atimespec.tv_sec, dp->d_name);
+				// ft_printf("%d -- %s \n",buf->st_size, dp->d_name);
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 			}
 
