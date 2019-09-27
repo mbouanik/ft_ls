@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/27 11:46:58 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:22:41 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 			ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 		}
 		else {
-
 			if (dp->d_name[0] != '.'){
-				// ft_printf("%d -- %s \n",buf->st_size, listxattr(dp->d_name));
+				ft_printf("%s %s  %d %.19s %s\n",getpwuid(buf->st_uid)->pw_name, getgrgid(buf->st_gid)->gr_name, buf->st_size, ctime(&buf->st_mtimespec.tv_sec) ,dp->d_name);
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 			}
 
@@ -48,13 +47,13 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 
 
 
-		if (((buf->st_mode & S_IFMT) == S_IFDIR)){
-				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags & 2))
-					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
-				else if (dp->d_name[0] != '.')
-					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
-			  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
-			}
+		// if (((buf->st_mode & S_IFMT) == S_IFDIR)){
+		// 		if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags & 2))
+		// 			ft_add_subdir(&sub_dir, ft_strdup(path), buf);
+		// 		else if (dp->d_name[0] != '.')
+		// 			ft_add_subdir(&sub_dir, ft_strdup(path), buf);
+		// 	  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
+		// 	}
 
 
 
