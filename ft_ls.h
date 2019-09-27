@@ -23,6 +23,12 @@ typedef struct			s_dir_name
 {
 	char 				*name;
 	int 				time;
+	char				*date;
+	char				*pw_name;
+	char				*gr_name;
+	int					size;
+	int 				n_link;
+	char				*mode;
 	struct s_dir_name	*next;
 }						t_dir_name;
 
@@ -43,5 +49,6 @@ void 					display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir
 void 					ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * file_name);
 void					ft_add_sub_by_time(t_dir_name** nsub_dir, char * str, struct stat * buf);
 int 					ft_sort_by_time(int time1, int time2);
+char *					ft_read_mode(struct stat * buf);
 
 #endif

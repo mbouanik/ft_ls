@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/27 14:48:17 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/27 16:22:42 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,33 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 		}
 		else {
 			if (dp->d_name[0] != '.'){
-				ft_printf("%d %s  %s %6d %.15s %s\n",buf->st_nlink, getpwuid(buf->st_uid)->pw_name, getgrgid(buf->st_gid)->gr_name, buf->st_size, &ctime(&buf->st_mtimespec.tv_sec)[4] ,dp->d_name);
+				// if ((buf->st_mode & S_IFMT)  == S_IFDIR)
+				// ft_printf("d");
+				// else 
+				// 	ft_printf("-");
+				// if (buf->st_mode & S_IRUSR)
+				// 	ft_printf("r");
+				// else 
+				// 	ft_printf("-");
+				// if (buf->st_mode &  S_IWUSR)
+				// 	ft_printf("w");
+				// else 
+				// 	ft_printf("-");
+				// if (buf->st_mode &  S_IXUSR)
+				// 		ft_printf("x");
+				// else 
+				// 	ft_printf("-");
+				ft_printf( (S_ISDIR(buf->st_mode)) ? "d" : "-");
+				ft_printf( (buf->st_mode & S_IRUSR) ? "r" : "-");
+				ft_printf( (buf->st_mode & S_IWUSR) ? "w" : "-");
+				ft_printf( (buf->st_mode & S_IXUSR) ? "x" : "-");
+				ft_printf( (buf->st_mode & S_IRGRP) ? "r" : "-");
+				ft_printf( (buf->st_mode & S_IWGRP) ? "w" : "-");
+				ft_printf( (buf->st_mode & S_IXGRP) ? "x" : "-");
+				ft_printf( (buf->st_mode & S_IROTH) ? "r" : "-");
+				ft_printf( (buf->st_mode & S_IWOTH) ? "w" : "-");
+				ft_printf( (buf->st_mode & S_IXOTH) ? "x" : "-");
+				ft_printf(" %d %s  %s  %6d %.15s %s\n", buf->st_nlink, getpwuid(buf->st_uid)->pw_name, getgrgid(buf->st_gid)->gr_name, buf->st_size, &ctime(&buf->st_mtimespec.tv_sec)[4] ,dp->d_name);
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 			}
 
@@ -47,13 +73,13 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 
 
 
-		// if (((buf->st_mode & S_IFMT) == S_IFDIR)){
-		// 		if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags & 2))
-		// 			ft_add_subdir(&sub_dir, ft_strdup(path), buf);
-		// 		else if (dp->d_name[0] != '.')
-		// 			ft_add_subdir(&sub_dir, ft_strdup(path), buf);
-		// 	  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
-		// 	}
+		if (((buf->st_mode & S_IFMT) == S_IFDIR)){
+				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags & 2))
+					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
+				else if (dp->d_name[0] != '.')
+					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
+			  	// ft_printf("---%s ---", ft_strjoin(name, dp->d_name));
+			}
 
 
 
@@ -73,11 +99,14 @@ void 			ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * 
 	// ft_printf("----%s ---\n", dp);
 	
 	
-	while (st_dir){
-		ft_printf("%-10s ", st_dir->name);
-		free_dir(&st_dir);
-		// st_dir = st_dir->next;
-	}
+	// while (st_dir){
+	// 	if (g_flags & 16)
+	// 		 ft_printf("%3d %s  %s  %6d %.15s %s\n", st_dir->n_link, st_dir->pw_name, st_dir->gr_name, st_dir->size, st_dir->date, st_dir->name);
+	// 	else
+	// 		ft_printf("%-10s ", st_dir->name);
+	// 	free_dir(&st_dir);
+	// 	// st_dir = st_dir->next;
+	// }
 	if (!dp && dir)
 		(void)closedir(dir);
 	ft_printf("\n");

@@ -31,6 +31,8 @@ void ft_assign_ls_flags(char *s){
 			g_flags |= 4;
 		else if (s[i] == 't')
 			g_flags |= 8;
+		else if (s[i] == 'l')
+			g_flags |= 16;
 		i++;
 	}
 }
