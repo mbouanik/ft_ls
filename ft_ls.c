@@ -6,48 +6,38 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/08 20:51:26 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/27 19:59:33 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
- #include "ft_ls.h"
+#include "ft_ls.h"
 
-int ft_ls(char * s)
+int				ft_ls(char *s)
 {
-	DIR * dir;
-	struct dirent *dp;
-	struct stat buf;
+	DIR				*dir;
+	struct dirent	*dp;
+	struct stat		buf;
 
 	dir = NULL;
-	// dir = opendir(s);
-	// if(dir == NULL){
-	// 	perror("error");
-	// return (0);
-	// }
 	ft_display_dir(dp, dir, &buf, s);
-	// closedir(dir);
-	return 0;
+
+	return (0);
 }
 
-int main(int ac, char  *av[]){
-	char * root;
-	int i;
+int				main(int ac, char *av[])
+{
+	char 	*root;
+	int 	i;
 
 	i = 0;
 	g_flags = 0;
 	root = NULL;
-	// if (av[1][0] == '-')
-	// ft_assign_ls_flags(av[1]);
-// if (ac == 2){
-
-// }
-// else if (ac == 1){
-	
-// }
- if (!av[1]){
+	if (!av[1])
+	{
 		if (!av[1])
 			root = strdup("./");
-		else{
+		else
+		{
 			while (av[1] && av[1][i])
 				++i;
 			if (av[1][i - 1] != '/')
@@ -55,38 +45,32 @@ int main(int ac, char  *av[]){
 			else
 				root = strdup(av[1]);
 		}
-}
-else if (av[1] && !av[2]){
-	if(av[1][0] == '-' && av[1][1]){
-		ft_assign_ls_flags(av[1]);
-		root = strdup("./");
+	}
+	else if (av[1] && !av[2])
+	{
+		if (av[1][0] == '-' && av[1][1])
+		{
+			ft_assign_ls_flags(av[1]);
+			root = strdup("./");
+		}
+		else
+			root = ft_strjoin(av[1], "/");
 	}
 	else
-		root = ft_strjoin(av[1], "/");
-}
-else{
-	ft_assign_ls_flags(av[1]);
-	if (!av[2])
-		root = strdup("./");
-		else{
-		while (av[2] && av[2][i])
-			++i;
-		if (av[2][i - 1] != '/')
-			root = ft_strjoin(av[2], "/");
+	{
+		ft_assign_ls_flags(av[1]);
+		if (!av[2])
+			root = strdup("./");
 		else
-			root = strdup(av[2]);
+		{
+			while (av[2] && av[2][i])
+				++i;
+			if (av[2][i - 1] != '/')
+				root = ft_strjoin(av[2], "/");
+			else
+				root = strdup(av[2]);
 		}
-}
+	}
 	ft_ls(root);
-
-
-	
-	// ft_printf("%lu\n", -42);
-	// printf("%lu\n", -42);
-
-	// ft_printf("%d\n", ft_compare(".AngelaB", ".AngelaA"));
-	// ft_printf("%d\n", ft_compare(".Angela", "AngelaA"));
-	// ft_printf("%d\n", ft_compalsre(".Angela", "AngelaA"));
-
-	return 0;
+	return (0);
 }

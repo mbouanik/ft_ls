@@ -3,22 +3,26 @@
 
 
 int ft_check_flags(int c){
-	char * f = "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1";
+	char *f = "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1";
 	int i;
-	
+
 	i = 0;
-	while(f[i]){
-		if(c == f[i])
+	while (f[i])
+	{
+		if (c == f[i])
 			return 1;
 		i++;
 	}
-	return 0; 
+	return 0;
 }
-void ft_assign_ls_flags(char *s){
+void		ft_assign_ls_flags(char *s){
 	int i;
-		i = 1;
-	while(s[i]){
-		if (!ft_check_flags(s[i])){
+
+	i = 1;
+	while (s[i])
+	{
+		if (!ft_check_flags(s[i]))
+		{
 			ft_printf("ft_ls: illegal option -- %c\n", s[i]);
 			ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
 			exit(-1);
@@ -55,11 +59,11 @@ size_t			lenname(DIR * dir, struct dirent * dp){
     
 }
 
-int			ft_hidden_dir(char *s){
-
-	if (s[0] == '.'&&  !s[1])
-		return 0;
+int			ft_hidden_dir(char *s)
+{
+	if (s[0] == '.' && !s[1])
+		return (0);
 	else if (s[0] == '.' && s[1] == '.')
-		return 0;
-	return 1;
+		return (0);
+	return (1);
 }
