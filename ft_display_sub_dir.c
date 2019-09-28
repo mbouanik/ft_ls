@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:53:41 by mathis            #+#    #+#             */
-/*   Updated: 2019/09/27 16:08:24 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/27 19:13:39 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void 	display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_nam
 		free_subdir(&st_dir);
 		// st_dir = st_dir->next;
 	}
-	ft_printf("\n");
+	if (!(g_flags & 16))
+		ft_printf("\n");
 	if (sub_dir && (g_flags & 1)){
 		path = ft_strjoin(sub_dir->name, "/");
 		ft_printf("\n%s:\n", sub_dir->name);
