@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/27 19:34:23 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/28 10:22:03 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_ls.h"
 
 void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_name){
-	
+
 	t_dir_name	*sub_dir;
 	t_dir_name	*st_dir;
 	char		*path;
@@ -24,7 +24,8 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_
 	st_dir = NULL;
 	dir = opendir(file_name);
 	if (dir == NULL)
-		ft_printf("ft_ls: %.*s: %s", ft_strlen(file_name) - 1, file_name, strerror(errno));
+		ft_printf("ft_ls: %.*s: %s", ft_strlen(file_name) - 1,
+		file_name, strerror(errno));
 	else
 		while ((dp = readdir(dir)) != NULL)
 		{
@@ -39,7 +40,8 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_
 			}
 			if (((buf->st_mode & S_IFMT) == S_IFDIR))
 			{
-				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name) && (g_flags & 2))
+				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name)
+				&& (g_flags & 2))
 					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
 				else if (dp->d_name[0] != '.')
 					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
@@ -49,8 +51,9 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_
 	while (st_dir)
 	{
 		if (g_flags & 16)
-			ft_printf("%s %3d %s %s %6d %.15s %s\n",
-			st_dir->mode, st_dir->n_link, st_dir->pw_name, st_dir->gr_name,
+			ft_printf("%s %*d %-*s %-*s %*d %.12s %s\n",
+			st_dir->mode, g_nlink_s, st_dir->n_link, g_pw_s, st_dir->pw_name,
+			g_grp_s, st_dir->gr_name, g_n_size,
 			st_dir->size, st_dir->date, st_dir->name);
 		else
 			ft_printf("%-10s ", st_dir->name);

@@ -27,13 +27,16 @@ typedef struct			s_dir_name
 	char				*pw_name;
 	char				*gr_name;
 	int					size;
-	int 				n_link;
+	int					n_link;
 	char				*mode;
 	struct s_dir_name	*next;
 }						t_dir_name;
 
 short 					g_flags;
-
+int						g_pw_s;
+int						g_grp_s;
+int						g_n_size;
+int						g_nlink_s;
 
 void 					ft_assign_ls_flags(char *s);
 size_t					lenname(DIR * dir, struct dirent * dp);

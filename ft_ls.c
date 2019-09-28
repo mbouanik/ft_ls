@@ -6,11 +6,18 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/27 19:59:33 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/28 10:06:09 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void			ft_init_gvar(void)
+{
+	g_pw_s = 0;
+	g_n_size = 0;
+	g_grp_s = 0;
+}
 
 int				ft_ls(char *s)
 {
@@ -19,6 +26,7 @@ int				ft_ls(char *s)
 	struct stat		buf;
 
 	dir = NULL;
+	ft_init_gvar();
 	ft_display_dir(dp, dir, &buf, s);
 
 	return (0);
@@ -26,8 +34,8 @@ int				ft_ls(char *s)
 
 int				main(int ac, char *av[])
 {
-	char 	*root;
-	int 	i;
+	char	*root;
+	int		i;
 
 	i = 0;
 	g_flags = 0;
