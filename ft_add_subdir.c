@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:54:30 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/27 19:40:43 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/29 13:31:15 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void			ft_add_sub_by_time(t_dir_name **nsub_dir, char *str, struct stat *buf){
 		if ((*nsub_dir)->next == NULL)
 			(*nsub_dir)->next = new_dir;
 		*nsub_dir = index;
+		index = NULL;
 	}
 }
 
-void			ft_add_subdir(t_dir_name** nsub_dir, char * str, struct stat * buf){
+void			ft_add_subdir(t_dir_name** nsub_dir, char *str, struct stat * buf){
 
 	t_dir_name *index;
 	t_dir_name *new_dir;
@@ -87,6 +88,8 @@ void			ft_add_subdir(t_dir_name** nsub_dir, char * str, struct stat * buf){
 			if ((*nsub_dir)->next == NULL)
 				(*nsub_dir)->next = new_dir;
 			*nsub_dir = index;
+			index = NULL;
 		}
 	}
+	// free(&str);
 }

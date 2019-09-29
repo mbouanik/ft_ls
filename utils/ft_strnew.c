@@ -6,12 +6,11 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 15:33:45 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/08/27 17:31:32 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/29 11:25:40 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-
 
 char	*ft_strnew(size_t size)
 {

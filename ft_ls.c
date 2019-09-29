@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/28 10:06:09 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/29 12:47:36 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				main(int ac, char *av[])
 	if (!av[1])
 	{
 		if (!av[1])
-			root = strdup("./");
+			root = ft_strdup("./");
 		else
 		{
 			while (av[1] && av[1][i])
@@ -51,7 +51,7 @@ int				main(int ac, char *av[])
 			if (av[1][i - 1] != '/')
 				root = ft_strjoin(av[1], "/");
 			else
-				root = strdup(av[1]);
+				root = ft_strdup(av[1]);
 		}
 	}
 	else if (av[1] && !av[2])
@@ -59,7 +59,7 @@ int				main(int ac, char *av[])
 		if (av[1][0] == '-' && av[1][1])
 		{
 			ft_assign_ls_flags(av[1]);
-			root = strdup("./");
+			root = ft_strdup("./");
 		}
 		else
 			root = ft_strjoin(av[1], "/");
@@ -68,7 +68,7 @@ int				main(int ac, char *av[])
 	{
 		ft_assign_ls_flags(av[1]);
 		if (!av[2])
-			root = strdup("./");
+			root = ft_strdup("./");
 		else
 		{
 			while (av[2] && av[2][i])
@@ -76,7 +76,7 @@ int				main(int ac, char *av[])
 			if (av[2][i - 1] != '/')
 				root = ft_strjoin(av[2], "/");
 			else
-				root = strdup(av[2]);
+				root = ft_strdup(av[2]);
 		}
 	}
 	ft_ls(root);
