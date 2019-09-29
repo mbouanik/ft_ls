@@ -45,13 +45,13 @@ void 					ft_free_struct(t_dir_name *sub_dir);
 int 					ft_sort_name(char *s1, char *s2);
 void					free_subdir(t_dir_name ** sub_dir);
 void					free_dir(t_dir_name ** sub_dir);
-t_dir_name * 			ft_new_subdir(char *s, struct stat * buf);
-void					ft_add_subdir(t_dir_name** nsub_dir ,char * str, struct stat * buf);
+t_dir_name * 			ft_new_subdir(char *s, struct stat  buf);
+void					ft_add_subdir(t_dir_name** nsub_dir ,char *str, struct stat buf);
 int 					ft_ls(char * s);
-void 					display_subdir(struct dirent * dp, char* name, struct stat *buf, t_dir_name  *sub_dir);
-void 					ft_display_dir(struct dirent * dp, DIR * dir, struct stat * buf, char * file_name);
-void					ft_add_sub_by_time(t_dir_name** nsub_dir, char * str, struct stat * buf);
+void 					display_subdir(struct dirent * dp, char* name, struct stat buf, t_dir_name  *sub_dir);
+void 					ft_display_dir(struct dirent * dp, DIR * dir, struct stat buf, char * file_name);
+void					ft_add_sub_by_time(t_dir_name** nsub_dir, char * str, struct stat  buf);
 int 					ft_sort_by_time(int time1, int time2);
-char *					ft_read_mode(struct stat * buf);
+char *					ft_read_mode(struct stat  buf);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/29 12:47:36 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/29 14:34:51 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void			ft_init_gvar(void)
 {
+	g_flags = 0;
 	g_pw_s = 0;
 	g_n_size = 0;
 	g_grp_s = 0;
@@ -26,8 +27,8 @@ int				ft_ls(char *s)
 	struct stat		buf;
 
 	dir = NULL;
-	ft_init_gvar();
-	ft_display_dir(dp, dir, &buf, s);
+
+	ft_display_dir(dp, dir, buf, s);
 
 	return (0);
 }
@@ -38,8 +39,8 @@ int				main(int ac, char *av[])
 	int		i;
 
 	i = 0;
-	g_flags = 0;
 	root = NULL;
+		ft_init_gvar();
 	if (!av[1])
 	{
 		if (!av[1])

@@ -6,14 +6,14 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/29 13:33:27 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/29 14:44:27 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_ls.h"
 
-void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_name){
+void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_name){
 
 	t_dir_name	*sub_dir;
 	t_dir_name	*st_dir;
@@ -25,15 +25,16 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_
 	st_dir = NULL;
 	// dp_name = NULL;
 	dir = opendir(file_name);
+		bzero(&buf, sizeof(struct stat));
 	if (dir == NULL)
 		ft_printf("ft_ls: %.*s: %s", ft_strlen(file_name) - 1,
 		file_name, strerror(errno));
 	else
 		while ((dp = readdir(dir)) != NULL)
 		{
-			dp_name = ft_strdup(dp->d_name);
-			path = ft_strjoin(file_name, dp_name);
-			lstat(path, buf);
+			// dp_name = ft_strdup(dp->d_name);
+			path = ft_strjoin(file_name, dp->d_name);
+			lstat(path, &buf);
 			if ((g_flags) & 2)
 				ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 			else
@@ -41,7 +42,7 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_
 				if (dp->d_name[0] != '.')
 					ft_add_subdir(&st_dir, ft_strdup(dp->d_name), buf);
 			}
-			if ((g_flags & 1) && ((buf->st_mode & S_IFMT) == S_IFDIR))
+			if ((g_flags & 1) && ((buf.st_mode & S_IFMT) == S_IFDIR))
 			{
 				if (dp->d_name[0] == '.' && ft_hidden_dir(dp->d_name)
 				&& (g_flags & 2))
@@ -50,7 +51,8 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_
 					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
 			}
 			free(path);
-			free(dp_name);
+			bzero(&buf, sizeof(struct stat));
+			// free(dp_name);
 		}
 	while (st_dir)
 	{
@@ -72,7 +74,7 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat *buf, char *file_
 		file_name = ft_strjoin(sub_dir->name, "/");
 		ft_printf("\n%s:\n", sub_dir->name);
 		display_subdir(dp, file_name, buf, sub_dir->next);
-		free(file_name);
 		free_subdir(&sub_dir);
+		free(file_name);
 	}
 }
