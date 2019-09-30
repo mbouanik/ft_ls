@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:55:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 14:16:39 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 16:21:23 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_dir_name		*ft_new_subdir(char *s, struct stat buf)
 	}
 	if (g_flags & 16)
 	{
+		ft_readlink(&new_dir->linkname, buf, g_path);
 		g_block += buf.st_blocks;
 		if (ft_strlen(new_dir->pw_name) > g_pw_s)
 			g_pw_s = ft_strlen(new_dir->pw_name) + 1;
