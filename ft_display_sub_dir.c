@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:53:41 by mathis            #+#    #+#             */
-/*   Updated: 2019/09/29 14:39:55 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 13:06:19 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	display_subdir(struct dirent *dp, char *name, struct stat buf, t_dir_name *
 	while (st_dir)
 	{
 		if (g_flags & 16)
-			ft_printf(" %d %s %s %6d %.15s %s\n",
+			ft_printf("%s %d %s %s %6d %.15s %s\n", st_dir->mode,
 			st_dir->n_link, st_dir->pw_name, st_dir->gr_name,
 			st_dir->size, st_dir->date, st_dir->name);
 		else

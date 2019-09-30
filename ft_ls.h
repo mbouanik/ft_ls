@@ -29,14 +29,16 @@ typedef struct			s_dir_name
 	int					size;
 	int					n_link;
 	char				*mode;
+	char 				*linkname;
 	struct s_dir_name	*next;
 }						t_dir_name;
 
 short 					g_flags;
-int						g_pw_s;
-int						g_grp_s;
-int						g_n_size;
-int						g_nlink_s;
+size_t					g_pw_s;
+size_t					g_grp_s;
+size_t					g_n_size;
+size_t					g_nlink_s;
+int						g_block;
 
 void 					ft_assign_ls_flags(char *s);
 size_t					lenname(DIR * dir, struct dirent * dp);
@@ -53,5 +55,6 @@ void 					ft_display_dir(struct dirent * dp, DIR * dir, struct stat buf, char * 
 void					ft_add_sub_by_time(t_dir_name** nsub_dir, char * str, struct stat  buf);
 int 					ft_sort_by_time(int time1, int time2);
 char *					ft_read_mode(struct stat  buf);
+void					ft_readlink(t_dir_name** nsub_dir, struct stat buf, char *path);
 
 #endif
