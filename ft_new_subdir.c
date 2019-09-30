@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:55:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/29 14:50:43 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 12:24:48 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ t_dir_name		*ft_new_subdir(char *s, struct stat buf)
 	{
 		new_dir->name = s;
 		new_dir->next = NULL;
-		// new_dir->time = buf.st_mtime;
-		// new_dir->date = ft_strdup(&ctime(&buf.st_mtimespec.tv_sec)[4]);
-		// new_dir->size = buf.st_size;
-		// new_dir->n_link = buf.st_nlink;
-		// new_dir->pw_name = ft_strdup(getpwuid(buf.st_uid)->pw_name);
-		// new_dir->gr_name = ft_strdup(getgrgid(buf.st_gid)->gr_name);
-		// new_dir->mode = ft_read_mode(buf);
+		new_dir->time = buf.st_mtime;
+		new_dir->date = ft_strdup(&ctime(&buf.st_mtimespec.tv_sec)[4]);
+		new_dir->size = buf.st_size;
+		new_dir->n_link = buf.st_nlink;
+		new_dir->pw_name = ft_strdup(getpwuid(buf.st_uid)->pw_name);
+		new_dir->gr_name = ft_strdup(getgrgid(buf.st_gid)->gr_name);
+		new_dir->mode = ft_read_mode(buf);
 	}
 	if (g_flags & 16)
 	{
