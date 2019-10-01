@@ -6,11 +6,24 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:55:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 20:33:07 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 22:33:02 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+char			*ft_time(struct stat buf)
+{
+	char		*t;
+	time_t		curtime;
+
+	time(&curtime);
+	if ((curtime - buf.st_mtime) >= 15778463)
+		t = ft_strsub(ctime(&buf.st_mtime), 20, 4);
+	else
+		t = ft_strsub(ctime(&buf.st_mtime), 11, 5);
+	return (t);
+}
 
 t_dir_name		*ft_new_subdir(char *s, struct stat buf)
 {
@@ -21,14 +34,15 @@ t_dir_name		*ft_new_subdir(char *s, struct stat buf)
 	{
 		new_dir->name = s;
 		new_dir->next = NULL;
+		new_dir->t = ft_time(buf);
 		new_dir->time = buf.st_mtime;
-		new_dir->date = ft_strdup(&ctime(&buf.st_mtimespec.tv_sec)[4]);
+		new_dir->date = ft_strsub(ctime(&buf.st_mtime), 3, 7);
 		new_dir->size = buf.st_size;
 		new_dir->n_link = buf.st_nlink;
 		new_dir->pw_name = ft_strdup(getpwuid(buf.st_uid)->pw_name);
 		new_dir->gr_name = ft_strdup(getgrgid(buf.st_gid)->gr_name);
 		new_dir->mode = ft_read_mode(buf);
-		new_dir->linkname = ft_readlink(buf, g_path);;
+		new_dir->linkname = ft_readlink(buf, g_path);
 	}
 	if (g_flags & 16)
 	{
