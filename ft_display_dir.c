@@ -6,12 +6,26 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 22:22:19 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:39:08 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_ls.h"
+
+void			ft_display_flag_l(t_dir_name **st_dir)
+{
+	ft_printf("total %d\n", g_block);
+	while (*st_dir)
+	{
+		ft_printf("%s %*d %-*s %-*s %*d %s %5s %s%s\n",
+		(*st_dir)->mode, g_nlink_s, (*st_dir)->n_link, g_pw_s, (*st_dir)->pw_name,
+		g_grp_s, (*st_dir)->gr_name, g_n_size,
+		(*st_dir)->size, (*st_dir)->date, (*st_dir)->t, (*st_dir)->name, (*st_dir)->linkname);
+		free_subdir(st_dir);
+	}
+	g_block = 0;
+}
 
 void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_name){
 
@@ -50,25 +64,19 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_n
 			}
 			free(path);
 			bzero(&buf, sizeof(struct stat));
-			// free(dp_name);
 		}
-		if (g_flags & 16)
-		ft_printf("total %d\n", g_block);
-	while (st_dir)
-	{
-		if (g_flags & 16)
-			ft_printf("%s %*d %-*s %-*s %*d %s %5s %s%s\n",
-			st_dir->mode, g_nlink_s, st_dir->n_link, g_pw_s, st_dir->pw_name,
-			g_grp_s, st_dir->gr_name, g_n_size,
-			st_dir->size, st_dir->date, st_dir->t, st_dir->name, st_dir->linkname);
-		else
+	if ((g_flags & 16))
+		ft_display_flag_l(&st_dir);
+	else
+		while (st_dir)
+		{
 			ft_printf("%-10s ", st_dir->name);
-		free_subdir(&st_dir);
-	}
-	g_block = 0;
+			free_subdir(&st_dir);
+		}
 	if (!dp && dir)
 		(void)closedir(dir);
-	ft_printf("\n");
+	if (!(g_flags & 16))
+		ft_printf("\n");
 	free(file_name);
 	if (sub_dir && (g_flags & 1))
 	{

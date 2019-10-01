@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 22:33:43 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/01 12:40:30 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,60 +28,49 @@ int				ft_ls(char *s)
 	struct stat		buf;
 
 	dir = NULL;
-
+	dp = NULL;
+	bzero(&buf, sizeof(struct stat));
 	ft_display_dir(dp, dir, buf, s);
-
 	return (0);
+}
+
+void			ft_ac_two(char **av, char **root)
+{
+	if (av[1][0] == '-' && av[1][1])
+	{
+		ft_assign_ls_flags(av[1]);
+		*root = ft_strdup("./");
+	}
+	else
+	{
+		if (av[1][ft_strlen(av[1]) - 1] != '/')
+			*root = ft_strjoin(av[1], "/");
+		else
+			*root = ft_strdup(av[1]);
+	}
 }
 
 int				main(int ac, char *av[])
 {
 	char	*root;
-	int		i;
 
-	i = 0;
 	root = NULL;
-		ft_init_gvar();
-	if (!av[1])
-	{
-		if (!av[1])
-			root = ft_strdup("./");
-		else
-		{
-			while (av[1] && av[1][i])
-				++i;
-			if (av[1][i - 1] != '/')
-				root = ft_strjoin(av[1], "/");
-			else
-				root = ft_strdup(av[1]);
-		}
-	}
-	else if (av[1] && !av[2])
-	{
-		if (av[1][0] == '-' && av[1][1])
+	ft_init_gvar();
+	if (ac == 1)
+		root = ft_strdup("./");
+	else if (ac == 2)
+		ft_ac_two(av, &root);
+	else if (ac == 3)
+		if (av[1][0] == '-')
 		{
 			ft_assign_ls_flags(av[1]);
-			root = ft_strdup("./");
-		}
-		else
-			root = ft_strjoin(av[1], "/");
-	}
-	else
-	{
-		ft_assign_ls_flags(av[1]);
-		if (!av[2])
-			root = ft_strdup("./");
-		else
-		{
-			while (av[2] && av[2][i])
-				++i;
-			if (av[2][i - 1] != '/')
+			if (av[2][ft_strlen(av[2]) - 1] != '/')
 				root = ft_strjoin(av[2], "/");
 			else
 				root = ft_strdup(av[2]);
 		}
-	}
+
 	ft_ls(root);
-	//  system("leaks ft_ls");
+	// system("leaks ft_ls");
 	return (0);
 }

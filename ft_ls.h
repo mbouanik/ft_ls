@@ -34,10 +34,10 @@ typedef struct			s_dir_name
 }						t_dir_name;
 
 short 					g_flags;
-int						g_pw_s;
-int						g_grp_s;
-int						g_n_size;
-int						g_nlink_s;
+size_t					g_pw_s;
+size_t					g_grp_s;
+size_t					g_n_size;
+size_t					g_nlink_s;
 char					*g_path;
 int						g_block;
 
