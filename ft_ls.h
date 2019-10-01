@@ -8,7 +8,6 @@
 #include <pwd.h>
 #include <uuid/uuid.h>
 #include <sys/ioctl.h>
-#include "utils/utils.h"
 #include <dirent.h>
 #include <stdio.h>
 #include <errno.h>
@@ -57,5 +56,11 @@ void					ft_add_sub_by_time(t_dir_name** nsub_dir, char * str, struct stat  buf)
 int 					ft_sort_by_time(int time1, int time2);
 char *					ft_read_mode(struct stat  buf);
 char					*ft_readlink(struct stat buf, char *path);
+void	*ft_memalloc(size_t size);
+void	*ft_memset(void *b, int c, size_t len);
+char	*ft_strcat(char *s1, const char *s2);
+char	*ft_strdup(const char *s1);
+char	*ft_strnew(size_t size);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
