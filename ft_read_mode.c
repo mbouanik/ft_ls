@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:28:46 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/29 14:31:21 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 17:07:56 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void					ft_usr_mode(struct stat buf, char **mode)
 {
-	if (S_ISDIR(buf.st_mode))
-		(*mode)[0] = 'd';
+
+	if ((buf.st_mode & S_IFMT) == S_IFLNK)
+		(*mode)[0] = 'l';
 	else
-		(*mode)[0] = '-';
+	{
+		if (S_ISDIR(buf.st_mode))
+			(*mode)[0] = 'd';
+		else
+			(*mode)[0] = '-';
+	}
 	if (buf.st_mode & S_IRUSR)
 		(*mode)[1] = 'r';
 	else
@@ -52,7 +58,7 @@ char					*ft_read_mode(struct stat buf)
 {
 	char				*mode;
 
-	mode = ft_memalloc(11);
+	mode = ft_strnew(10);
 	ft_usr_mode(buf, &mode);
 	ft_grp_mode(buf, &mode);
 	if (buf.st_mode & S_IROTH)

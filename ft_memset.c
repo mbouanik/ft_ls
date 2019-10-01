@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_s.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/11 20:22:49 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 18:33:28 by mbouanik         ###   ########.fr       */
+/*   Created: 2016/11/05 11:44:04 by mbouanik          #+#    #+#             */
+/*   Updated: 2019/09/30 18:25:08 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_ls.h"
 
-int		ft_atoi_s(char **str, va_list list)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	int		nb;
+	size_t		i;
+	char		*str;
 
-	nb = 0;
-	if (**str == '*')
-		return (va_arg(list, int));
-	while (**str >= '0' && **str <= '9')
-	{
-		nb = (nb * 10) + (**str - 48);
-		*str += 1;
-	}
-	*str -= 1;
-	return (nb);
+	str = NULL;
+	i = 0;
+	str = (char*)b;
+	while (i < len)
+		str[i++] = (unsigned char)c;
+	return (str);
 }

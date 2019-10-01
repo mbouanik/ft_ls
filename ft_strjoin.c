@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_s.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/11 20:22:49 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 18:33:28 by mbouanik         ###   ########.fr       */
+/*   Created: 2016/11/15 16:55:21 by mbouanik          #+#    #+#             */
+/*   Updated: 2019/09/30 18:26:00 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_ls.h"
 
-int		ft_atoi_s(char **str, va_list list)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int		nb;
+	char *str;
 
-	nb = 0;
-	if (**str == '*')
-		return (va_arg(list, int));
-	while (**str >= '0' && **str <= '9')
-	{
-		nb = (nb * 10) + (**str - 48);
-		*str += 1;
-	}
-	*str -= 1;
-	return (nb);
+	str = NULL;
+	if (s1 != NULL && s2 != NULL)
+		if ((str = ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
+		{
+			ft_strcat(str, s1);
+			ft_strcat(str, s2);
+		}
+	return (str);
 }
