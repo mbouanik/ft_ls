@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/01 12:40:30 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/01 15:17:03 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ int				main(int ac, char *av[])
 		}
 
 	ft_ls(root);
-	// system("leaks ft_ls");
+	system("leaks ft_ls");
 	return (0);
 }
