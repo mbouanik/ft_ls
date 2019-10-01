@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 16:34:57 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 18:35:17 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/05 17:21:43 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,6 @@ int					ft_choice(double n);
 size_t				ft_strlen_comma_less_than_one(long double n);
 void				ft_less_than_one(t_type *lst, double n);
 void				ft_display_pmfw(t_type *lst);
-void				*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 #endif

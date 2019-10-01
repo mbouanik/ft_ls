@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 16:47:31 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 20:37:23 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_n
 	sub_dir = NULL;
 	st_dir = NULL;
 	dir = opendir(file_name);
+	bzero(&buf, sizeof(struct stat));
 	if (dir == NULL)
 		ft_printf("ft_ls: %.*s: %s", ft_strlen(file_name) - 1,
 		file_name, strerror(errno));
@@ -48,8 +49,10 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_n
 					ft_add_subdir(&sub_dir, ft_strdup(path), buf);
 			}
 			free(path);
+			bzero(&buf, sizeof(struct stat));
+			// free(dp_name);
 		}
-	if (g_flags & 16)
+		if (g_flags & 16)
 		ft_printf("total %d\n", g_block);
 	while (st_dir)
 	{
@@ -62,10 +65,10 @@ void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_n
 			ft_printf("%-10s ", st_dir->name);
 		free_subdir(&st_dir);
 	}
+	g_block = 0;
 	if (!dp && dir)
 		(void)closedir(dir);
-	if (!(g_flags & 16))
-		ft_printf("\n");
+	ft_printf("\n");
 	free(file_name);
 	if (sub_dir && (g_flags & 1))
 	{

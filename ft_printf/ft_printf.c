@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/07 22:49:40 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 18:43:16 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/03 17:53:34 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,8 @@ int				ft_printf(char *format, ...)
 		if (*format == '%' && (format++) && *format)
 		{
 			ft_assign_flags(&format, &lst, list);
-			while (g_arg[j].c)
-			{
-				if (lst.arg_type == g_arg[j].c)
-				{
+			while (g_arg[j].c){
+				if (lst.arg_type == g_arg[j].c){
 					g_arg[j].f(&lst, list);
 					break ;
 				}

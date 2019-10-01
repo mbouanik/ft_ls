@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 13:49:32 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 20:51:50 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void			ft_init_gvar(void)
 	g_pw_s = 0;
 	g_n_size = 0;
 	g_grp_s = 0;
+	g_path = NULL;
 }
 
 int				ft_ls(char *s)
@@ -27,9 +28,9 @@ int				ft_ls(char *s)
 	struct stat		buf;
 
 	dir = NULL;
-	dp = NULL;
-	bzero(&buf, sizeof(struct stat));
+
 	ft_display_dir(dp, dir, buf, s);
+
 	return (0);
 }
 
@@ -40,8 +41,8 @@ int				main(int ac, char *av[])
 
 	i = 0;
 	root = NULL;
-	ft_init_gvar();
-	if (ac == 1)
+		ft_init_gvar();
+	if (!av[1])
 	{
 		if (!av[1])
 			root = ft_strdup("./");
@@ -81,6 +82,6 @@ int				main(int ac, char *av[])
 		}
 	}
 	ft_ls(root);
-	// system("leaks ft_ls");
+	//  system("leaks ft_ls");
 	return (0);
 }

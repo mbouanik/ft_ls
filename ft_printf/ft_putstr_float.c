@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 20:45:11 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 18:34:33 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:59:08 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			ft_round_up_f(long double n, t_type *lst)
 
 	i = g_p;
 	g_p--;
-	if (((uint64_t)(n * 10) % 10) >= 5)
+	if (((uint64_t)(n * 10) % 10 ) >= 5)
 	{
 		if (g_str[g_p] <= '8' && g_str[g_p] >= '0')
 			g_str[g_p] += 1;
@@ -56,7 +56,7 @@ void			ft_round_up_f(long double n, t_type *lst)
 			while ((g_str[g_p] == '9' && SIZE))
 			{
 				if (g_str[g_p] == '.' && (--SIZE))
-					break ;
+					break;
 				g_str[g_p] = '0';
 				--g_p;
 				--SIZE;

@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:53:41 by mathis            #+#    #+#             */
-/*   Updated: 2019/09/30 16:12:58 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/30 20:49:53 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,19 @@ void	display_subdir(struct dirent *dp, char *name, struct stat buf, t_dir_name *
 	}
 	if (!dp && dir)
 		(void)closedir(dir);
+	if (g_flags & 16)
+		ft_printf("total %d\n", g_block);
 	while (st_dir)
 	{
 		if (g_flags & 16)
-			ft_printf("%s %d %s %s %6d %.15s %s\n", st_dir->mode,
-			st_dir->n_link, st_dir->pw_name, st_dir->gr_name,
-			st_dir->size, st_dir->date, st_dir->name);
+			ft_printf("%s %d %s %s %6d %.15s %s%s\n",
+			st_dir->mode, st_dir->n_link, st_dir->pw_name, st_dir->gr_name,
+			st_dir->size, st_dir->date, st_dir->name, st_dir->linkname);
 		else
 			ft_printf("%-10s ", st_dir->name);
 		free_subdir(&st_dir);
 	}
+	g_block = 0;
 	if (!(g_flags & 16))
 		ft_printf("\n");
 	if (sub_dir && (g_flags & 1))

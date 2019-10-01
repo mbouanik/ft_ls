@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:54:30 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 14:42:10 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/09/29 14:40:28 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,5 @@ void			ft_add_subdir(t_dir_name** nsub_dir, char *str, struct stat buf){
 			index = NULL;
 		}
 	}
+	// free(&str);
 }
