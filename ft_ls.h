@@ -15,9 +15,6 @@
 #include <grp.h>
 #include <uuid/uuid.h>
 
-
-
-
 typedef struct			s_dir_name 
 {
 	char 				*name;
@@ -64,7 +61,7 @@ char					*ft_strdup(const char *s1);
 char					*ft_strnew(size_t size);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					*ft_strsub(char const *s, unsigned int start, size_t len);
-void					ft_display_rec(t_dir_name **sub_dir, struct stat buf, struct dirent *dp, char **file_name);
+void					ft_display_rec(t_dir_name **sub_dir, struct stat buf, struct dirent *dp, char **name);
 void					ft_set(struct dirent *dp, struct stat buf, t_dir_name **st_dir, t_dir_name **sub_dir);
 void					ft_display_flag_l(t_dir_name **st_dir);
 void					ft_display_ls(t_dir_name **st_dir);
