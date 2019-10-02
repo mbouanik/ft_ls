@@ -6,23 +6,23 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:53:41 by mathis            #+#    #+#             */
-/*   Updated: 2019/10/01 16:36:12 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/01 18:32:48 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	display_subdir(struct dirent *dp, char *name, struct stat buf, t_dir_name *sub_dir){
-
+void	display_subdir(struct dirent *dp, char *name,
+struct stat buf, t_dir_name *sub_dir)
+{
 	t_dir_name	*st_dir;
-	char		*path;
 	DIR			*dir;
 
 	dir = opendir(name);
 	st_dir = NULL;
-	path = NULL;
 	if (dir == NULL)
-		ft_printf(" ls: %.*s: %s", ft_strlen(name) - 1, name, strerror(errno));
+		ft_printf("ft_ls: %.*s: %s", ft_strlen(name) - 1,
+		name, strerror(errno));
 	else
 		while ((dp = readdir(dir)) != NULL)
 		{

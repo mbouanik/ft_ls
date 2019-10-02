@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:55:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 22:33:02 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/01 19:07:53 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ char			*ft_time(struct stat buf)
 	else
 		t = ft_strsub(ctime(&buf.st_mtime), 11, 5);
 	return (t);
+}
+
+void			ft_ls_l_flag(t_dir_name *new_dir, struct stat buf)
+{
+	g_block += buf.st_blocks;
+	if (ft_strlen(new_dir->pw_name) > g_pw_s)
+		g_pw_s = ft_strlen(new_dir->pw_name) + 1;
+	if (ft_strlen(new_dir->gr_name) > g_grp_s)
+		g_grp_s = ft_strlen(new_dir->gr_name);
+	if (ft_strlen_num(new_dir->size) > g_n_size)
+		g_n_size = ft_strlen_num(new_dir->size);
+	if (ft_strlen_num(new_dir->n_link) > g_nlink_s)
+		g_nlink_s = ft_strlen_num(new_dir->n_link);
 }
 
 t_dir_name		*ft_new_subdir(char *s, struct stat buf)
@@ -45,16 +58,6 @@ t_dir_name		*ft_new_subdir(char *s, struct stat buf)
 		new_dir->linkname = ft_readlink(buf, g_path);
 	}
 	if (g_flags & 16)
-	{
-		g_block += buf.st_blocks;
-		if (ft_strlen(new_dir->pw_name) > g_pw_s)
-			g_pw_s = ft_strlen(new_dir->pw_name) + 1;
-		if (ft_strlen(new_dir->gr_name) > g_grp_s)
-			g_grp_s = ft_strlen(new_dir->gr_name);
-		if (ft_strlen_num(new_dir->size) > g_n_size)
-			g_n_size = ft_strlen_num(new_dir->size);
-		if (ft_strlen_num(new_dir->n_link) > g_nlink_s)
-			g_nlink_s = ft_strlen_num(new_dir->n_link);
-	}
+		ft_ls_l_flag(new_dir, buf);
 	return (new_dir);
 }

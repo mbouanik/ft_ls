@@ -6,14 +6,14 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/01 16:28:26 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/01 18:50:44 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_ls.h"
 
-void		ft_display_ls(t_dir_name **st_dir)
+void	ft_display_ls(t_dir_name **st_dir)
 {
 	while (*st_dir)
 	{
@@ -23,7 +23,7 @@ void		ft_display_ls(t_dir_name **st_dir)
 	ft_printf("\n");
 }
 
-void			ft_display_flag_l(t_dir_name **st_dir)
+void	ft_display_flag_l(t_dir_name **st_dir)
 {
 	ft_printf("total %d\n", g_block);
 	while (*st_dir)
@@ -67,7 +67,7 @@ void	ft_display_rec(t_dir_name **sub_dir, struct stat buf, struct dirent *dp, ch
 	free_subdir(sub_dir);
 }
 
-void			ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_name)
+void	ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_name)
 {
 	t_dir_name	*sub_dir;
 	t_dir_name	*st_dir;

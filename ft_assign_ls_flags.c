@@ -1,22 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_assign_ls_flags.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/01 19:02:11 by mbouanik          #+#    #+#             */
+/*   Updated: 2019/10/01 19:03:43 by mbouanik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-
-
-int ft_check_flags(int c){
-	char *f = "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1";
-	int i;
+int			ft_check_flags(int c)
+{
+	char	*f;
+	int		i;
 
 	i = 0;
+	f = "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1";
 	while (f[i])
 	{
 		if (c == f[i])
-			return 1;
+			return (1);
 		i++;
 	}
-	return 0;
+	return (0);
 }
-void		ft_assign_ls_flags(char *s){
-	int i;
+
+void		ft_assign_ls_flags(char *s)
+{
+	int		i;
 
 	i = 1;
 	while (s[i])
@@ -24,7 +38,9 @@ void		ft_assign_ls_flags(char *s){
 		if (!ft_check_flags(s[i]))
 		{
 			ft_printf("ft_ls: illegal option -- %c\n", s[i]);
-			ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+			ft_printf("%s %s",
+			"usage: ft_ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1]",
+			"[file ...] \n");
 			exit(-1);
 		}
 		if (s[i] == 'R')
@@ -39,24 +55,6 @@ void		ft_assign_ls_flags(char *s){
 			g_flags |= 16;
 		i++;
 	}
-}
-
-size_t			lenname(DIR * dir, struct dirent * dp){
-
-	size_t size;
-	struct dirent * index;
-
-	index = dp;
-
-	size = 0;
-	while ((dp = readdir(dir)) != NULL) {
-		if (dp->d_namlen > size)
-			size = dp->d_namlen ;
-		}
-	dp = index;
-    rewinddir(dir);
-	return size;
-    
 }
 
 int			ft_hidden_dir(char *s)

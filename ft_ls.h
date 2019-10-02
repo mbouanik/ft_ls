@@ -50,7 +50,7 @@ void					ft_add_subdir(t_dir_name** nsub_dir ,char *str, struct stat buf);
 int 					ft_ls(char * s);
 void 					display_subdir(struct dirent * dp, char* name, struct stat buf, t_dir_name  *sub_dir);
 void 					ft_display_dir(struct dirent * dp, DIR * dir, struct stat buf, char * file_name);
-void					ft_add_sub_by_time(t_dir_name** nsub_dir, char * str, struct stat  buf);
+void					ft_sub_time(t_dir_name** nsub_dir, char * str, struct stat  buf);
 int 					ft_sort_by_time(int time1, int time2);
 char *					ft_read_mode(struct stat  buf);
 char					*ft_readlink(struct stat buf, char *path);
