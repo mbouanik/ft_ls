@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 19:02:11 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/03 14:47:40 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/03 16:10:57 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			ft_check_flags(int c)
 	int		i;
 
 	i = 0;
-	f = "ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1";
+	f = "-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1";
 	while (f[i])
 	{
 		if (c == f[i])
@@ -53,6 +53,8 @@ void		ft_assign_ls_flags(char *s)
 			g_flags |= 8;
 		else if (s[i] == 'l')
 			g_flags |= 16;
+		else if (s[i] == '-')
+			g_flags |= 32;
 		i++;
 	}
 }

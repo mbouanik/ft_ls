@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/03 15:41:22 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/03 16:11:40 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int				main(int ac, char *av[])
 		ft_ls(ft_strdup("./"));
 	else if (ac > 1)
 	{
-		while (i < ac && av[i][0] == '-' && av[i][1])
+		while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
 		{
 			ft_assign_ls_flags(av[i]);
 			++i;
@@ -85,6 +85,6 @@ int				main(int ac, char *av[])
 			}
 		}
 	}
-	system("leaks ft_ls");
+	// system("leaks ft_ls");
 	return (0);
 }
