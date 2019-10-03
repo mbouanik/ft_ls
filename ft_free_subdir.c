@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:56:16 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 22:23:26 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/02 19:00:42 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		free_subdir(t_dir_name **sub_dir)
 		*sub_dir = NULL;
 		return ;
 	}
-
 	temp = *sub_dir;
 	*sub_dir = (*sub_dir)->next;
 	free(temp->name);
@@ -40,5 +39,4 @@ void		free_subdir(t_dir_name **sub_dir)
 	free(temp->t);
 	free(temp->linkname);
 	free(temp);
-	temp = NULL;
 }

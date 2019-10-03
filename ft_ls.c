@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/01 18:35:32 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:41:22 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void			ft_init_gvar(void)
 {
+	g_block = 0;
 	g_flags = 0;
 	g_pw_s = 0;
 	g_n_size = 0;
@@ -52,25 +53,38 @@ void			ft_ac_two(char **av, char **root)
 
 int				main(int ac, char *av[])
 {
-	char	*root;
+	int		i;
+	int		title;
 
-	root = NULL;
+	i = 1;
+	title = 0;
 	ft_init_gvar();
 	if (ac == 1)
-		root = ft_strdup("./");
-	else if (ac == 2)
-		ft_ac_two(av, &root);
-	else if (ac == 3)
-		if (av[1][0] == '-')
+		ft_ls(ft_strdup("./"));
+	else if (ac > 1)
+	{
+		while (i < ac && av[i][0] == '-' && av[i][1])
 		{
-			ft_assign_ls_flags(av[1]);
-			if (av[2][ft_strlen(av[2]) - 1] != '/')
-				root = ft_strjoin(av[2], "/");
-			else
-				root = ft_strdup(av[2]);
+			ft_assign_ls_flags(av[i]);
+			++i;
 		}
-
-	ft_ls(root);
+		if (av[i] == NULL)
+			ft_ls(ft_strdup("./"));
+		else
+		{
+			if (ac - i > 1)
+				title = 1;
+			while (i < ac && av[i])
+			{
+				if (title)
+					ft_printf("%s:\n", av[i]);
+				ft_ls(ft_strjoin(av[i], "/"));
+				if (title && ac - i > 1)
+					ft_printf("\n");
+				i++;
+			}
+		}
+	}
 	system("leaks ft_ls");
 	return (0);
 }

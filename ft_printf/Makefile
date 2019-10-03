@@ -6,7 +6,7 @@
 #    By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/01 22:55:01 by mbouanik          #+#    #+#              #
-#    Updated: 2019/09/03 05:30:57 by mbouanik         ###   ########.fr        #
+#    Updated: 2019/10/03 13:01:06 by mbouanik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,6 +100,7 @@ $(NAME) :
 	gcc -c $(FLAG) $(SRC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
+	@echo "\033[32m█\033[0m\c"
 
 clean :
 	rm -f $(OBJ)

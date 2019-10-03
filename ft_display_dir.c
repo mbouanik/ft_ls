@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/01 18:50:44 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/03 15:30:45 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,23 @@ void	ft_display_flag_l(t_dir_name **st_dir)
 	ft_printf("total %d\n", g_block);
 	while (*st_dir)
 	{
-		ft_printf("%s %*d %-*s %-*s %*d %s %5s %s%s\n",
+		ft_printf("%-*s %*d %-*s %-*s %*d%s %5s %s%s\n", 11,
 		(*st_dir)->mode, g_nlink_s, (*st_dir)->n_link, g_pw_s,
 		(*st_dir)->pw_name,
-		g_grp_s, (*st_dir)->gr_name, g_n_size,
+		g_grp_s, (*st_dir)->gr_name, g_n_size + 1,
 		(*st_dir)->size, (*st_dir)->date, (*st_dir)->t, (*st_dir)->name,
 		(*st_dir)->linkname);
 		free_subdir(st_dir);
 	}
 	g_block = 0;
+	g_pw_s = 0;
+	g_n_size = 0;
+	g_grp_s = 0;
+	g_nlink_s = 0;
 }
 
-void	ft_set(struct dirent *dp, struct stat buf, t_dir_name **st_dir, t_dir_name **sub_dir)
+void	ft_set(struct dirent *dp, struct stat buf,
+t_dir_name **st_dir, t_dir_name **sub_dir)
 {
 	if ((g_flags) & 2)
 		ft_add_subdir(st_dir, ft_strdup(dp->d_name), buf);
@@ -58,7 +63,8 @@ void	ft_set(struct dirent *dp, struct stat buf, t_dir_name **st_dir, t_dir_name 
 	}
 }
 
-void	ft_display_rec(t_dir_name **sub_dir, struct stat buf, struct dirent *dp, char **name)
+void	ft_display_rec(t_dir_name **sub_dir,
+struct stat buf, struct dirent *dp, char **name)
 {
 	*name = ft_strjoin((*sub_dir)->name, "/");
 	ft_printf("\n%s:\n", (*sub_dir)->name);
@@ -67,7 +73,8 @@ void	ft_display_rec(t_dir_name **sub_dir, struct stat buf, struct dirent *dp, ch
 	free_subdir(sub_dir);
 }
 
-void	ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_name)
+void	ft_display_dir(struct dirent *dp, DIR *dir,
+struct stat buf, char *file_name)
 {
 	t_dir_name	*sub_dir;
 	t_dir_name	*st_dir;
@@ -86,10 +93,7 @@ void	ft_display_dir(struct dirent *dp, DIR *dir, struct stat buf, char *file_nam
 			ft_set(dp, buf, &st_dir, &sub_dir);
 			free(g_path);
 		}
-	if ((g_flags & 16))
-		ft_display_flag_l(&st_dir);
-	else
-		ft_display_ls(&st_dir);
+	(g_flags & 16) ? ft_display_flag_l(&st_dir) : ft_display_ls(&st_dir);
 	if (!dp && dir)
 		(void)closedir(dir);
 	free(file_name);
