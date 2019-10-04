@@ -6,11 +6,44 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/03 16:11:40 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/04 11:47:53 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+int				ft_error(char **s1, char *s2)
+{
+	DIR			*dir;
+	int			r;
+	int			i;
+
+	r = 1;
+	i = 1;
+	dir = NULL;
+	if (s1)
+	{
+		while (s1[i])
+		{
+			dir = opendir(s1[i]);
+			if (dir == NULL)
+				ft_printf("ft_ls: %.*s: %s\n", ft_strlen(s1[i]),
+				s1[i], strerror(errno));
+			i++;
+			if (dir)
+				(void)closedir(dir);
+		}
+	}
+	else
+	{
+		dir = opendir(s2);
+		if (dir == NULL)
+			r = 0;
+		if (dir)
+			(void)closedir(dir);
+	}
+	return (r);
+}
 
 void			ft_init_gvar(void)
 {
@@ -35,56 +68,46 @@ int				ft_ls(char *s)
 	return (0);
 }
 
-void			ft_ac_two(char **av, char **root)
+void			ft_ac_more_than_one(char **av, int ac)
 {
-	if (av[1][0] == '-' && av[1][1])
-	{
-		ft_assign_ls_flags(av[1]);
-		*root = ft_strdup("./");
-	}
+	int		i;
+	int		title;
+	t_dir_name folders;
+
+	i = 1;
+	title = 0;
+	ft_error(av, NULL);
+	while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
+		ft_assign_ls_flags(av[i++]);
+	if (av[i] == NULL)
+		ft_ls(ft_strdup("./"));
 	else
 	{
-		if (av[1][ft_strlen(av[1]) - 1] != '/')
-			*root = ft_strjoin(av[1], "/");
-		else
-			*root = ft_strdup(av[1]);
+		if (ac - i > 1)
+			title = 1;
+		while (i < ac && av[i])
+		{
+			if (ft_error(NULL, av[i]))
+			{
+				if (title)
+					ft_printf("%s:\n", av[i]);
+				ft_ls(ft_strjoin(av[i], "/"));
+				if (title && (ac - 1) != i)
+					ft_printf("\n");
+			}
+			i++;
+		}
+			ft_ls(ft_strjoin(av[i], "/"));
 	}
 }
 
 int				main(int ac, char *av[])
 {
-	int		i;
-	int		title;
-
-	i = 1;
-	title = 0;
 	ft_init_gvar();
 	if (ac == 1)
 		ft_ls(ft_strdup("./"));
 	else if (ac > 1)
-	{
-		while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
-		{
-			ft_assign_ls_flags(av[i]);
-			++i;
-		}
-		if (av[i] == NULL)
-			ft_ls(ft_strdup("./"));
-		else
-		{
-			if (ac - i > 1)
-				title = 1;
-			while (i < ac && av[i])
-			{
-				if (title)
-					ft_printf("%s:\n", av[i]);
-				ft_ls(ft_strjoin(av[i], "/"));
-				if (title && ac - i > 1)
-					ft_printf("\n");
-				i++;
-			}
-		}
-	}
+		ft_ac_more_than_one(av, ac);
 	// system("leaks ft_ls");
 	return (0);
 }

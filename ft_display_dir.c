@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/03 15:49:58 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:12:05 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,8 @@ struct stat buf, char *file_name)
 	sub_dir = NULL;
 	st_dir = NULL;
 	dir = opendir(file_name);
-	if (dir == NULL)
-		ft_printf("ft_ls: %.*s: %s", ft_strlen(file_name) - 1,
-		file_name, strerror(errno));
-	else
+	if (dir != NULL)
+	{
 		while ((dp = readdir(dir)) != NULL)
 		{
 			g_path = ft_strjoin(file_name, dp->d_name);
@@ -93,10 +91,11 @@ struct stat buf, char *file_name)
 			ft_set(dp, buf, &st_dir, &sub_dir);
 			free(g_path);
 		}
-	(g_flags & 16) ? ft_display_flag_l(&st_dir) : ft_display_ls(&st_dir);
-	if (!dp && dir)
-		(void)closedir(dir);
-	free(file_name);
-	if (sub_dir && (g_flags & 1))
-		ft_display_rec(&sub_dir, buf, dp, &file_name);
+		(g_flags & 16) ? ft_display_flag_l(&st_dir) : ft_display_ls(&st_dir);
+		if (!dp && dir)
+			(void)closedir(dir);
+		free(file_name);
+		if (sub_dir && (g_flags & 1))
+			ft_display_rec(&sub_dir, buf, dp, &file_name);
+	}
 }
