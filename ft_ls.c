@@ -6,13 +6,13 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/04 11:47:53 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/04 11:55:13 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int				ft_error(char **s1, char *s2)
+int				ft_error(char **s1, char *s2, int ac)
 {
 	DIR			*dir;
 	int			r;
@@ -23,6 +23,8 @@ int				ft_error(char **s1, char *s2)
 	dir = NULL;
 	if (s1)
 	{
+		while (i < ac && s1[i][0] == '-' && s1[i][1] && !(g_flags & 32))
+			i++;
 		while (s1[i])
 		{
 			dir = opendir(s1[i]);
@@ -76,9 +78,9 @@ void			ft_ac_more_than_one(char **av, int ac)
 
 	i = 1;
 	title = 0;
-	ft_error(av, NULL);
 	while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
 		ft_assign_ls_flags(av[i++]);
+	ft_error(av, NULL, ac);
 	if (av[i] == NULL)
 		ft_ls(ft_strdup("./"));
 	else
@@ -87,7 +89,7 @@ void			ft_ac_more_than_one(char **av, int ac)
 			title = 1;
 		while (i < ac && av[i])
 		{
-			if (ft_error(NULL, av[i]))
+			if (ft_error(NULL, av[i], ac))
 			{
 				if (title)
 					ft_printf("%s:\n", av[i]);
