@@ -6,7 +6,7 @@
 /*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 19:12:56 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/04 16:27:30 by mathis           ###   ########.fr       */
+/*   Updated: 2019/10/05 12:28:28 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include <sys/xattr.h>
 #include <grp.h>
 #include <uuid/uuid.h>
+#include <sys/acl.h>
 
 typedef struct			s_dir_name 
 {

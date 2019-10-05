@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_mode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:28:46 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/09/30 19:08:45 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/05 12:44:18 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void					ft_extended(struct stat buf, char **mode)
+{
+	acl_t acl = NULL;
+    acl_entry_t dummy;
+    ssize_t xattr = 0;
+
+    acl = acl_get_link_np(filename, ACL_TYPE_EXTENDED);
+    if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
+        acl_free(acl);
+        acl = NULL;
+    }
+    xattr = listxattr(filename, NULL, 0, XATTR_NOFOLLOW);
+    if (xattr < 0)
+        xattr = 0;
+
+    if (xattr > 0)
+        (*mode)[10] = '@';
+    else if (acl != NULL)
+       (*mode)[10] = '+';
+    else
+    	(*mode)[10] = ' ';
+	
+}
 
 void					ft_usr_mode(struct stat buf, char **mode)
 {
@@ -57,7 +81,7 @@ char					*ft_read_mode(struct stat buf)
 {
 	char				*mode;
 
-	mode = ft_memalloc(11);
+	mode = ft_memalloc(12);
 	ft_usr_mode(buf, &mode);
 	ft_grp_mode(buf, &mode);
 	if (buf.st_mode & S_IROTH)
