@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mathis <mathis@student.42.fr>              +#+  +:+       +#+         #
+#    By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/02 09:48:51 by mbouanik          #+#    #+#              #
-#    Updated: 2019/10/04 16:30:27 by mathis           ###   ########.fr        #
+#    Updated: 2019/10/05 15:24:19 by mbouanik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC = 	ft_add_subdir.c\
 		ft_strnew.c\
 		ft_strsub.c\
 		ft_memset.c\
-		ft_sort_args.c
+		ft_sort_args.c\
+		ft_one_arg.c
 
 
 

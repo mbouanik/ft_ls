@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 19:12:56 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/05 13:19:40 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/05 15:23:12 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ int						ft_sort_name(char *s1, char *s2);
 void					ft_time_name(t_dir_name **nsub_dir, t_dir_name *new_dir);
 void					ft_sort_args(t_dir_name **folders, char *s);
 void					ft_extended(char **mode);
+void					ft_one_arg(char **av, t_dir_name **folders, int i);
 #endif
