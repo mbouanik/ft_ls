@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/04 18:35:18 by mathis           ###   ########.fr       */
+/*   Updated: 2019/10/05 15:05:09 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ int				ft_error(char **s1, char *s2, int ac, t_dir_name **folders)
 	{
 		while (i < ac && s1[i][0] == '-' && s1[i][1] && !(g_flags & 32))
 			i++;
-		while (i  < ac && s1[i])
+		while (i < ac && s1[i])
 		{
 			dir = opendir(s1[i]);
 			if (dir == NULL)
 				ft_printf("ft_ls: %.*s: %s\n", ft_strlen(s1[i]),
 				s1[i], strerror(errno));
-			
 			if (dir)
 			{
 				(void)closedir(dir);
 				ft_sort_args(folders, ft_strdup(s1[i]));
-				
 			}
 			i++;
 		}
@@ -77,22 +75,29 @@ int				ft_ls(char *s)
 
 void			ft_ac_more_than_one(char **av, int ac)
 {
-	int		i;
-	t_dir_name *folders;
+	int			i;
+	t_dir_name	*folders;
 
 	i = 1;
 	folders = NULL;
+	ft_error(av, NULL, ac, &folders);
 	while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
 		ft_assign_ls_flags(av[i++]);
-	ft_error(av, NULL, ac, &folders);
-	if (av[i] == NULL)
-		ft_ls(ft_strdup("./"));
+	if (av[i] == NULL || ((ac - 1) == i))
+	{
+		(av[i] == NULL) ? ft_ls(ft_strdup("./")) :
+		ft_ls(ft_strjoin(folders->name, "/"));
+		if (folders)
+			free_subdir(&folders);
+	}
 	else
 	{
 		while (folders)
 			if (ft_error(NULL, folders->name, ac, NULL))
 			{
 				ft_printf("%s:\n", folders->name);
+				(folders->name[0] == '/' && !folders->name[1]) ?
+				ft_ls(ft_strdup(folders->name)) :
 				ft_ls(ft_strjoin(folders->name, "/"));
 				free_subdir(&folders);
 				if (folders)

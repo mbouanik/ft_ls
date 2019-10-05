@@ -3,37 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_mode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:28:46 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/05 12:44:18 by mathis           ###   ########.fr       */
+/*   Updated: 2019/10/05 14:17:40 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void					ft_extended(struct stat buf, char **mode)
+void					ft_extended(char **mode)
 {
-	acl_t acl = NULL;
-    acl_entry_t dummy;
-    ssize_t xattr = 0;
+	acl_t				acl;
+	acl_entry_t			dummy;
+	ssize_t				xattr;
 
-    acl = acl_get_link_np(filename, ACL_TYPE_EXTENDED);
-    if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) {
-        acl_free(acl);
-        acl = NULL;
-    }
-    xattr = listxattr(filename, NULL, 0, XATTR_NOFOLLOW);
-    if (xattr < 0)
-        xattr = 0;
+	acl = NULL;
+	xattr = 0;
+	acl = acl_get_link_np(g_path, ACL_TYPE_EXTENDED);
+	if (acl && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1)
+	{
+		acl_free(acl);
+		acl = NULL;
+	}
+	xattr = listxattr(g_path, NULL, 0, XATTR_NOFOLLOW);
+	if (xattr < 0)
+		xattr = 0;
 
-    if (xattr > 0)
-        (*mode)[10] = '@';
-    else if (acl != NULL)
-       (*mode)[10] = '+';
-    else
-    	(*mode)[10] = ' ';
-	
+	if (xattr > 0)
+		(*mode)[10] = '@';
+	else if (acl != NULL)
+		(*mode)[10] = '+';
+	else
+		(*mode)[10] = ' ';
+	acl_free(acl);
+	acl = NULL;
 }
 
 void					ft_usr_mode(struct stat buf, char **mode)
@@ -81,7 +85,7 @@ char					*ft_read_mode(struct stat buf)
 {
 	char				*mode;
 
-	mode = ft_memalloc(12);
+	mode = ft_strnew(11);
 	ft_usr_mode(buf, &mode);
 	ft_grp_mode(buf, &mode);
 	if (buf.st_mode & S_IROTH)
@@ -96,5 +100,6 @@ char					*ft_read_mode(struct stat buf)
 		mode[9] = 'x';
 	else
 		mode[9] = '-';
+	ft_extended(&mode);
 	return (mode);
 }

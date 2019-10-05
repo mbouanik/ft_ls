@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_dir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/04 18:32:26 by mathis           ###   ########.fr       */
+/*   Updated: 2019/10/05 14:59:52 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	ft_display_ls(t_dir_name **st_dir)
 		free_subdir(st_dir);
 	}
 	ft_printf("\n");
+	g_block = 0;
+	g_pw_s = 0;
+	g_n_size = 0;
+	g_grp_s = 0;
+	g_nlink_s = 0;
 }
 
 void	ft_display_flag_l(t_dir_name **st_dir)
@@ -29,7 +34,7 @@ void	ft_display_flag_l(t_dir_name **st_dir)
 		ft_printf("total %d\n", g_block);
 	while (*st_dir)
 	{
-		ft_printf("%-*s %*d %-*s %-*s %*d%s %5s %s%s\n", 11,
+		ft_printf("%s %*d %-*s %-*s %*d%s %5s %s%s\n",
 		(*st_dir)->mode, g_nlink_s, (*st_dir)->n_link, g_pw_s,
 		(*st_dir)->pw_name,
 		g_grp_s, (*st_dir)->gr_name, g_n_size + 1,
