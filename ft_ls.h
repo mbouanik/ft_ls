@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 19:12:56 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/02 16:00:49 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/04 16:27:30 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ void					ft_display_flag_l(t_dir_name **st_dir);
 void					ft_display_ls(t_dir_name **st_dir);
 int						ft_sort_name(char *s1, char *s2);
 void					ft_time_name(t_dir_name **nsub_dir, t_dir_name *new_dir);
+void ft_sort_args(t_dir_name **folders, char *s);
 
 #endif

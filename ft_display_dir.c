@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_dir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/03 17:12:05 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:32:26 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_display_ls(t_dir_name **st_dir)
 
 void	ft_display_flag_l(t_dir_name **st_dir)
 {
-	ft_printf("total %d\n", g_block);
+	if (*st_dir)
+		ft_printf("total %d\n", g_block);
 	while (*st_dir)
 	{
 		ft_printf("%-*s %*d %-*s %-*s %*d%s %5s %s%s\n", 11,

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mathis <mathis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/04 11:55:13 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/04 18:35:18 by mathis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int				ft_error(char **s1, char *s2, int ac)
+int				ft_error(char **s1, char *s2, int ac, t_dir_name **folders)
 {
 	DIR			*dir;
 	int			r;
@@ -25,15 +25,20 @@ int				ft_error(char **s1, char *s2, int ac)
 	{
 		while (i < ac && s1[i][0] == '-' && s1[i][1] && !(g_flags & 32))
 			i++;
-		while (s1[i])
+		while (i  < ac && s1[i])
 		{
 			dir = opendir(s1[i]);
 			if (dir == NULL)
 				ft_printf("ft_ls: %.*s: %s\n", ft_strlen(s1[i]),
 				s1[i], strerror(errno));
-			i++;
+			
 			if (dir)
+			{
 				(void)closedir(dir);
+				ft_sort_args(folders, ft_strdup(s1[i]));
+				
+			}
+			i++;
 		}
 	}
 	else
@@ -73,33 +78,26 @@ int				ft_ls(char *s)
 void			ft_ac_more_than_one(char **av, int ac)
 {
 	int		i;
-	int		title;
-	t_dir_name folders;
+	t_dir_name *folders;
 
 	i = 1;
-	title = 0;
+	folders = NULL;
 	while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
 		ft_assign_ls_flags(av[i++]);
-	ft_error(av, NULL, ac);
+	ft_error(av, NULL, ac, &folders);
 	if (av[i] == NULL)
 		ft_ls(ft_strdup("./"));
 	else
 	{
-		if (ac - i > 1)
-			title = 1;
-		while (i < ac && av[i])
-		{
-			if (ft_error(NULL, av[i], ac))
+		while (folders)
+			if (ft_error(NULL, folders->name, ac, NULL))
 			{
-				if (title)
-					ft_printf("%s:\n", av[i]);
-				ft_ls(ft_strjoin(av[i], "/"));
-				if (title && (ac - 1) != i)
+				ft_printf("%s:\n", folders->name);
+				ft_ls(ft_strjoin(folders->name, "/"));
+				free_subdir(&folders);
+				if (folders)
 					ft_printf("\n");
 			}
-			i++;
-		}
-			ft_ls(ft_strjoin(av[i], "/"));
 	}
 }
 
