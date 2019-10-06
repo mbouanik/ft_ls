@@ -6,11 +6,27 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/05 15:22:22 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/06 16:15:31 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void			ft_error_2(char *s1, t_dir_name **folders)
+{
+	DIR			*dir;
+
+	dir = NULL;
+	dir = opendir(s1);
+	if (dir == NULL)
+		ft_printf("ft_ls: %.*s: %s\n", ft_strlen(s1),
+		s1, strerror(errno));
+	if (dir)
+	{
+		(void)closedir(dir);
+		ft_sort_args(folders, ft_strdup(s1));
+	}
+}
 
 int				ft_error(char **s1, char *s2, int ac, t_dir_name **folders)
 {
@@ -27,37 +43,16 @@ int				ft_error(char **s1, char *s2, int ac, t_dir_name **folders)
 			i++;
 		while (i < ac && s1[i])
 		{
-			dir = opendir(s1[i]);
-			if (dir == NULL)
-				ft_printf("ft_ls: %.*s: %s\n", ft_strlen(s1[i]),
-				s1[i], strerror(errno));
-			if (dir)
-			{
-				(void)closedir(dir);
-				ft_sort_args(folders, ft_strdup(s1[i]));
-			}
+			ft_error_2(s1[i], folders);
 			i++;
 		}
 	}
 	else
 	{
 		dir = opendir(s2);
-		if (dir == NULL)
-			r = 0;
-		if (dir)
-			(void)closedir(dir);
+		(dir == NULL) ? r = 0 : (void)closedir(dir);
 	}
 	return (r);
-}
-
-void			ft_init_gvar(void)
-{
-	g_block = 0;
-	g_flags = 0;
-	g_pw_s = 0;
-	g_n_size = 0;
-	g_grp_s = 0;
-	g_path = NULL;
 }
 
 int				ft_ls(char *s)
@@ -80,9 +75,10 @@ void			ft_ac_more_than_one(char **av, int ac)
 
 	i = 1;
 	folders = NULL;
-	ft_error(av, NULL, ac, &folders);
 	while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
 		ft_assign_ls_flags(av[i++]);
+	ft_error(av, NULL, ac, &folders);
+	g_block = 0;
 	if (av[i] == NULL || ((ac - 1) == i))
 		ft_one_arg(av, &folders, i);
 	else

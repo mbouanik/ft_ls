@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:55:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/05 15:04:17 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/06 16:16:28 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_dir_name		*ft_new_subdir(char *s, struct stat buf)
 		new_dir->next = NULL;
 		new_dir->t = ft_time(buf);
 		new_dir->time = buf.st_mtime;
+		new_dir->ntime = buf.st_mtimespec.tv_nsec;
 		new_dir->date = ft_strsub(ctime(&buf.st_mtime), 3, 7);
 		new_dir->size = buf.st_size;
 		new_dir->n_link = buf.st_nlink;

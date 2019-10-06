@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:54:30 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/05 14:13:26 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/06 16:12:04 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,13 @@ void			ft_add_by_time(t_dir_name **nsub_dir, t_dir_name *new_dir)
 {
 	t_dir_name	*index;
 	t_dir_name	*tmp;
-	int			r;
 
 	index = NULL;
 	tmp = NULL;
-	r = 0;
 	index = *nsub_dir;
 	while ((*nsub_dir)->next != NULL)
 	{
-		if (((r = ft_sort_by_time((*nsub_dir)->next->time, new_dir->time))))
+		if ((ft_sort_by_time((*nsub_dir)->next, new_dir)))
 		{
 			tmp = (*nsub_dir)->next;
 			(*nsub_dir)->next = new_dir;
@@ -95,16 +93,14 @@ void			ft_sub_time(t_dir_name **nsub_dir, char *str, struct stat buf)
 	t_dir_name	*index;
 	t_dir_name	*new_dir;
 	t_dir_name	*tmp;
-	int			r;
 
 	index = NULL;
 	new_dir = NULL;
 	tmp = NULL;
-	r = 0;
 	new_dir = ft_new_subdir(str, buf);
 	if (*nsub_dir == NULL)
 		*nsub_dir = new_dir;
-	else if ((r = ft_sort_by_time((*nsub_dir)->time, new_dir->time)))
+	else if (ft_sort_by_time(*nsub_dir, new_dir))
 	{
 		new_dir->next = (*nsub_dir);
 		(*nsub_dir) = new_dir;

@@ -6,25 +6,28 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 21:10:45 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/02 12:14:33 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/06 16:11:22 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			ft_sort_by_time(int time1, int time2)
+int			ft_sort_by_time(t_dir_name *nsub_dir, t_dir_name *new_dir)
 {
 	int r;
 
 	r = 0;
-	if (time1 > time2)
+	if (nsub_dir->time > new_dir->time)
 		r = 0;
-	else if (time1 < time2)
+	else if (nsub_dir->time < new_dir->time)
 		r = 1;
-	else if (time1 == time2)
-		return (-1);
-	else
-		r = 0;
+	else if (nsub_dir->time == new_dir->time)
+	{
+		if (nsub_dir->ntime > new_dir->ntime)
+			r = 0;
+		else if (nsub_dir->ntime < new_dir->ntime)
+			r = 1;
+	}
 	if (g_flags & 4)
 		return (!r);
 	return (r);

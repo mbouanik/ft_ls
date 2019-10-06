@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/09 16:34:57 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/02 16:10:58 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/06 11:48:19 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct		s_type
 	short			mod;
 	int				size;
 	char			arg_type;
+	int				j;
 }					t_type;
 
 typedef void		(*t_func_arg)(t_type *, va_list);

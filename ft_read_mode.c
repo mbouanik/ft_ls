@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:28:46 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/05 14:17:40 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/06 11:17:02 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void					ft_extended(char **mode)
 	xattr = listxattr(g_path, NULL, 0, XATTR_NOFOLLOW);
 	if (xattr < 0)
 		xattr = 0;
-
 	if (xattr > 0)
 		(*mode)[10] = '@';
 	else if (acl != NULL)

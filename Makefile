@@ -6,7 +6,7 @@
 #    By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/02 09:48:51 by mbouanik          #+#    #+#              #
-#    Updated: 2019/10/05 15:24:19 by mbouanik         ###   ########.fr        #
+#    Updated: 2019/10/06 14:57:42 by mbouanik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRC = 	ft_add_subdir.c\
 		ft_strsub.c\
 		ft_memset.c\
 		ft_sort_args.c\
-		ft_one_arg.c
+		ft_one_arg.c\
+		ft_init_g_var.c\
+		ft_time_name.c
 
 
 
