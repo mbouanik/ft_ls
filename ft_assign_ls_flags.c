@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 19:02:11 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/06 13:15:46 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/07 15:26:52 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void		ft_assign_ls_f(char s)
 	else if (s == 'l')
 		g_flags |= 16;
 	else if (s == '-')
+	{
 		g_flags |= 32;
+		return ;
+	}
 }
 
 void		ft_assign_ls_flags(char *s)

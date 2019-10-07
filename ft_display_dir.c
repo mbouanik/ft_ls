@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/06 12:36:57 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/07 11:30:26 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_display_ls(t_dir_name **st_dir)
 {
 	while (*st_dir)
 	{
-		ft_printf("%-15s", (*st_dir)->name);
+		ft_printf("%-20s ", (*st_dir)->name);
 		free_subdir(st_dir);
 	}
 	ft_printf("\n");

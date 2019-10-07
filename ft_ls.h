@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 19:12:56 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/06 16:11:16 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/07 12:28:40 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void					ft_display_dir(struct dirent *dp, DIR *dir,
 						struct stat buf, char *file_name);
 void					ft_sub_time(t_dir_name **nsub_dir, char *str,
 						struct stat buf);
-int						ft_sort_by_time(t_dir_name *nsub_dir, t_dir_name *new_dir);
-int						ft_sort_by_t(t_dir_name *nsub_dir, t_dir_name *new_dir);
+int						ft_sort_by_time(t_dir_name *nsub_dir,
+						t_dir_name *new_dir);
 char					*ft_read_mode(struct stat buf);
 char					*ft_readlink(struct stat buf, char *path);
 void					*ft_memalloc(size_t size);
@@ -88,8 +88,6 @@ void					ft_set(struct dirent *dp, struct stat buf,
 void					ft_display_flag_l(t_dir_name **st_dir);
 void					ft_display_ls(t_dir_name **st_dir);
 int						ft_sort_name(char *s1, char *s2);
-void					ft_time_name(t_dir_name **nsub_dir,
-						t_dir_name *new_dir);
 void					ft_sort_args(t_dir_name **folders, char *s);
 void					ft_extended(char **mode);
 void					ft_one_arg(char **av, t_dir_name **folders, int i);
