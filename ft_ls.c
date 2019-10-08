@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/07 15:28:35 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/08 15:49:45 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void			ft_ac_more_than_one(char **av, int ac)
 		while (folders)
 			if (ft_error(NULL, folders->name, ac, NULL))
 			{
+				g_block = 0;
 				ft_printf("%s:\n", folders->name);
 				(folders->name[0] == '/' && !folders->name[1]) ?
 				ft_ls(ft_strdup(folders->name)) :
