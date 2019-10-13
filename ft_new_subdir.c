@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:55:20 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/07 12:10:58 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/12 17:13:47 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char			*ft_time(struct stat buf)
 
 void			ft_ls_l_flag(t_dir_name *new_dir, struct stat buf)
 {
-	g_block += buf.st_blocks;
 	if (ft_strlen(new_dir->pw_name) > g_pw_s)
 		g_pw_s = ft_strlen(new_dir->pw_name) + 1;
 	if (ft_strlen(new_dir->gr_name) > g_grp_s)

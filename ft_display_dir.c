@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:49:14 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/07 11:30:26 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/12 20:23:18 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_display_flag_l(t_dir_name **st_dir)
 void	ft_set(struct dirent *dp, struct stat buf,
 t_dir_name **st_dir, t_dir_name **sub_dir)
 {
+	g_block += buf.st_blocks;
 	if ((g_flags) & 2)
 		ft_add_subdir(st_dir, ft_strdup(dp->d_name), buf);
 	else

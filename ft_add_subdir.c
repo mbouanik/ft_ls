@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 17:54:30 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/06 16:12:04 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/12 17:50:27 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,9 @@ void			ft_add_by_time(t_dir_name **nsub_dir, t_dir_name *new_dir)
 
 void			ft_sub_time(t_dir_name **nsub_dir, char *str, struct stat buf)
 {
-	t_dir_name	*index;
 	t_dir_name	*new_dir;
-	t_dir_name	*tmp;
 
-	index = NULL;
 	new_dir = NULL;
-	tmp = NULL;
 	new_dir = ft_new_subdir(str, buf);
 	if (*nsub_dir == NULL)
 		*nsub_dir = new_dir;

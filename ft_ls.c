@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:57:36 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/08 15:49:45 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/12 17:18:24 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ft_ac_more_than_one(char **av, int ac)
 	while (i < ac && av[i][0] == '-' && av[i][1] && !(g_flags & 32))
 		ft_assign_ls_flags(av[i++]);
 	ft_error(av, NULL, ac, &folders);
-	if ((av[i] == NULL || ((ac - 1) == i)) && g_flags & 32)
+	if (av[i] == NULL || ((ac - 1) == i) || ac == i)
 		ft_one_arg(av, &folders, i);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: mbouanik <mbouanik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 19:12:56 by mbouanik          #+#    #+#             */
-/*   Updated: 2019/10/07 12:28:40 by mbouanik         ###   ########.fr       */
+/*   Updated: 2019/10/12 20:44:53 by mbouanik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef struct			s_dir_name
 	char				*linkname;
 	struct s_dir_name	*next;
 }						t_dir_name;
+
+typedef struct		s_sub_dir
+{
+	t_dir_name node;
+	struct		s_sub_dir *next;
+}									t_sub_dir;
 
 short					g_flags;
 size_t					g_pw_s;
